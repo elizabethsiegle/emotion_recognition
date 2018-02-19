@@ -1,0 +1,12 @@
+{
+      "question": "What emotion is this boy feeling?",
+      "options":
+        [
+          "Sad",
+          "Happy",
+          "Driven",
+          "Excited"
+        ],
+      "scores":
+        [0,3,1,2]
+  }
