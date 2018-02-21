@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^guess_emotion_1', views.Guess_emotion_1, name='Guess_emotion_1'),
     url(r'^what_they_say_1', views.What_they_say_1, name='What_they_say_1'),
     url(r'^json/$', views.returnjson, name='returnjson'),
+    url(r'^save/$', views.save, name='save'),
 ]
 

@@ -5,7 +5,21 @@
   <meta property="og:title" content="Thesis"/>
   <meta property="og:description" content="Lizzie's Senior Thesis (project)" />
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-<script src = "../static/js/jsonscript.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-database.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+    authDomain: "mythical-envoy-138318.firebaseapp.com",
+    databaseURL: "https://mythical-envoy-138318.firebaseio.com",
+    projectId: "mythical-envoy-138318",
+    storageBucket: "mythical-envoy-138318.appspot.com",
+    messagingSenderId: "780186137580"
+  };
+  firebase.initializeApp(config);
+</script>
+<!--<script src = "../static/js/jsonscript.js"></script>-->
 <style>
 .emotion_img img {
   transform:          rotate(90def);
@@ -32,6 +46,7 @@ a.button {
 </style>
 </head>
 <body>
+<form action= "{% url 'save' %}" method="get">
   <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
     {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/joy.jpeg' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
         <span><input type="radio" name="question1" id="happy" value="happy">Happy</input></span>
@@ -80,7 +95,16 @@ a.button {
         <span><input type="radio" name="question6" id="disgusted" value="disgusted" >Disgusted</input></span>
 </div>
 </div>
+<input type = "submit" value = "Submit">
+</form>
+<pre id='data'></pre>
 <script>
+var database= firebase.database();
+var ref = firebase.database().ref();
+//ref.on("value", function(snapshot){
+  //  output.innerHTML = JSON.stringify(snapshot.val(), null, 2);
+//});
+
 var q1 = $('input[name=question1]:checked).val();
 var q2 = $('input[name=question2]:checked).val();
 var q3 = $('input[name=question3]:checked).val();
@@ -97,8 +121,19 @@ function returnJsonTop(){
         data: myJsonString
     });         
 }
+function writeUserData(userId, name) {
+    firebase.database().ref('users/' + userId).set({
+        username: name,
+        answers" myJsonString
+    });
+}
+var save_button = '#submitJson';
+$(save_button).click(function(){
+    writeUserData();
+});
+
 </script>
-<a href = "../what_they_say_1" class = "button">Send</a>
+<a href = "../what_they_say_1" class = "button"><button id = "submitJson" onclick="returnJsonTop();">Send</button></a>
       <div id="result"></div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
