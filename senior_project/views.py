@@ -1,9 +1,14 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 import firebase_admin
 import pyrebase
 from firebase_admin import db, credentials
 from django.http import HttpResponse
 # Create your views here.
+
+@login_required
+def home(request):
+    return render(request, 'home.html')
 
 def Index(request):
     return render(request, 'index.html')

@@ -30,6 +30,11 @@ BASE_DIR
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '5%wrr-s3#5(8=1i%ecfcz4l2dj@tr$z&snch8(ghtmk3=sx^g-'
 
+#twitter
+SOCIAL_AUTH_TWITTER_KEY = '1o9fka61LmLCTjsl49ZPlxqUn'
+SOCIAL_AUTH_TWITTER_SECRET = 'iZWSEMM2Q5xqstTdkKCO398KNZ0SMkBV1RJMiyBD8WyvGKAm0u'
+SOCIAL_AUTH_FACEBOOK_KEY= '2021514064793202' #app id
+SOCIAL_AUTH_FACEBOOK_SECRET = '38a7024939d2c3c4e2c07865d0e42104'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -45,7 +50,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'senior_project'
+    'senior_project',
+    'social_django',
+    #'mysite.core',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,6 +64,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 )
 
 ROOT_URLCONF = 'django_project.urls'
@@ -64,7 +72,7 @@ ROOT_URLCONF = 'django_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        #'DIRS': [PROJECT_DIR.child('templates'),], #[]
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,10 +80,20 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',  # <--
+                'social_django.context_processors.login_redirect', # <--
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 WSGI_APPLICATION = 'django_project.wsgi.application'
 
@@ -89,6 +107,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+
 
 
 # Internationalization
@@ -135,3 +155,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     '/home/django/django_project/django_project/static/',
 )
+
+LOGIN_REDIRECT_URL = 'index'
