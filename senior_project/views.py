@@ -1,14 +1,28 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 import firebase_admin
 import pyrebase
 from firebase_admin import db, credentials
 from django.http import HttpResponse
-# Create your views here.
+from PIL import Image as PilImage
+from models import Image
 
-@login_required
-def home(request):
-    return render(request, 'home.html')
+def rotate(request):
+    #get instance of model
+    item=Image.objects.get(pk=1)
+    #open image for PIL to access
+    im = PilImage.open(image.image)
+
+    #rotate by built-in PIL command
+    rotated_image = im.rotate(90)
+    rotated_image.save(item.image.file.name, overwrite=True)
+    return HttpResponse(str(image.image))
+#import cloudinary
+#import cloudinary.uploader
+#import cloudinary.api
+# Create your views here.
+#if form.is_valid():
+ #   new_image = form.save()
+  #  return redirect('img:detail', pk=new_image.id)
 
 def Index(request):
     return render(request, 'index.html')
@@ -28,7 +42,7 @@ def returnjson(request):
 def save_form(request):
     return render(request, "static_images_guess_thinking.html")
 
-def save(request):
+def save_static_1(request):
     config = {
         "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
         "authDomain": "mythical-envoy-138318.firebaseapp.com",
@@ -56,3 +70,32 @@ def save(request):
     db.child("answers").push(data)
     #return HttpResponse("OK from firebase config views.py")
     return render(request, 'static_images_guess_thinking.html')
+
+def save_static_2(request):
+    config = {
+        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+        "authDomain": "mythical-envoy-138318.firebaseapp.com",
+        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+        "serviceAccount": "MyProject-5eabf65db970.json",
+        "storageBucket": "mythical-envoy-138318.appspot.com"
+    }
+    data2 = {}
+    if 'questiontheysay1' in request.GET:
+        data2['q1'] = request.GET['questiontheysay1']
+    if 'questiontheysay2' in request.GET:
+        data2['q2'] = request.GET['questiontheysay2']
+    if 'questiontheysay3' in request.GET:
+        data2['q3'] = request.GET['questiontheysay3']
+    if 'questiontheysay4' in request.GET:
+        data2['q4'] = request.GET['questiontheysay4']
+    if 'questiontheysay5' in request.GET:
+        data2['q5'] = request.GET['questiontheysay5']
+    if 'questiontheysay6' in request.GET:
+        data2['q6'] = request.GET['questiontheysay6']
+    cred = credentials.Certificate('MyProject-5eabf65db970.json')
+    firebase = pyrebase.initialize_app(config)
+    db = firebase.database()
+    db.child("answers").child("second_static")
+    db.child("answers").push(data2)
+    #return HttpResponse("OK from firebase config views.py")
+    return render(request, 'static_images_guess_suggest.html')

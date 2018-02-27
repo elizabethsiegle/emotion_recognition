@@ -1,5 +1,4 @@
 """django_project URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
 Examples:
@@ -15,24 +14,17 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
 from senior_project import views
 from django.conf import settings
 from django.views.static import serve
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^index/$', views.Index, name='index'),
+    url(r'^$', views.Index, name='index'),
     url(r'^guess_emotion_1', views.Guess_emotion_1, name='Guess_emotion_1'),
     url(r'^what_they_say_1', views.What_they_say_1, name='What_they_say_1'),
     url(r'^json/$', views.returnjson, name='returnjson'),
-    url(r'^save/$', views.save, name='save'),
-    url(r'^$', auth_views.login, name='login'),
-    url(r'^logout/$', auth_views.logout, name='logout'),
-    url(r'^oauth/', include('social_django.urls', namespace='social')),  # <--
-    #url(r'^$', views.home, name='home')
+    url(r'^save_static_1/$', views.save_static_1, name='save_static_1'),
+    url(r'^save_static_2/$', views.save_static_2, name='save_static_2'),
 ]
 
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'index'

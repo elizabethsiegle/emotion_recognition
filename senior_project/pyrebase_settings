@@ -1,0 +1,21 @@
+import pyrebase
+
+config = {
+    "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+    "authDomain": "mythical-envoy-138318.firebaseapp.com",
+    "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+    "projectId": "mythical-envoy-138318",
+    "storageBucket": "mythical-envoy-138318.appspot.com",
+    "serviceAccount": "my_serviceAccount.json_file_path_is_here",
+    "messagingSenderId": "780186137580"
+}
+
+# initialize app with config
+firebase = pyrebase.initialize_app(config)
+
+# authenticate a user
+auth = firebase.auth()
+user = auth.sign_in_with_email_and_password("lizzie.siegle@gmail.com", "mightymawrtyr")
+
+
+db = firebase.database()

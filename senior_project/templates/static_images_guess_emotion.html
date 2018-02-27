@@ -4,6 +4,7 @@
   <title>Thesis project</title>
   <meta property="og:title" content="Thesis"/>
   <meta property="og:description" content="Lizzie's Senior Thesis (project)" />
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-database.js"></script>
@@ -19,37 +20,15 @@
   };
   firebase.initializeApp(config);
 </script>
-<!--<script src = "../static/js/jsonscript.js"></script>-->
 <style>
-.emotion_img img {
-  transform:          rotate(90def);
-  -ms-transform:      rotate(90deg);
-  -moz-transform:     rotate(90deg);
-  -webkit-transform:  rotate(90deg);
-  -o-transform:       rotate(90deg);
-}
-a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-    text-decoration: none;
-    color: green;
-    margin-bottom:0.5%;
-}
-.button {
-    width:50%;
-    border:1px solid #900;
-    margin-top:5%;
-    line-height:20px;
-}
 
 </style>
 </head>
 <body>
-<form action= "{% url 'save' %}" method="get">
+<form action= "{% url 'save_static_1' %}" method="get">
   <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
-    {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/joy.jpeg' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
-        <span><input type="radio" name="question1" id="happy" value="happy">Happy</input></span>
+    {% load static %} <div style="text-align:center"><img src="{%static '../static/images/static_images/joy.jpeg'  %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>        
+    <span><input type="radio" name="question1" id="happy" value="happy">Happy</input></span>
         <span><input type="radio" name="question1" id="sad" value="sad" >Sad</input></span>
         <span><input type="radio" name="question1" id="angry" value="angry">Angry</input></span>
         <span><input type="radio" name="question1" id="scared" value="scared" >Scared</input></span>
@@ -95,46 +74,54 @@ a.button {
         <span><input type="radio" name="question6" id="disgusted" value="disgusted" >Disgusted</input></span>
 </div>
 </div>
-<input type = "submit" value = "Submit">
+<div style="text-align:center"><input type = "submit" value = "send" id = "submitJson" onclick="returnJsonTop();"></div>
 </form>
-<pre id='data'></pre>
 <script>
 var database= firebase.database();
 var ref = firebase.database().ref();
-//ref.on("value", function(snapshot){
-  //  output.innerHTML = JSON.stringify(snapshot.val(), null, 2);
-//});
-
-var q1 = $('input[name=question1]:checked).val();
-var q2 = $('input[name=question2]:checked).val();
-var q3 = $('input[name=question3]:checked).val();
-var q4 = $('input[name=question4]:checked).val();
-var q5 = $('input[name=question5]:checked).val();
-var q6 = $('input[name=question6]:checked).val();
+var q1 = $('input[name=question1]:checked').val();
+var q2 = $('input[name=question2]:checked').val();
+var q3 = $('input[name=question3]:checked').val();
+var q4 = $('input[name=question4]:checked').val();
+var q5 = $('input[name=question5]:checked').val();
+var q6 = $('input[name=question6]:checked').val();
 var guess_emotions_static_arr = [q1, q2, q3, q4, q5, q6];
 var myJsonString = JSON.stringify(guess_emotions_static_arr);
 function returnJsonTop(){
-    $.ajax({
-        method: 'POST',
-        url: '/django_project/json/',
-        dataType: 'json',
-        data: myJsonString
-    });         
+    if(!$('input[name=question1]:checked').length) {
+        alert("Please answer question 1");
+    }
+    else if(!$('input[name=question2]:checked').length) {
+        alert("Please answer question 2");
+    }
+    else if (!$('input[name=question3]:checked').length) {
+        alert("Please answer question 3");
+    }
+    else if (!$('input[name=question4]:checked').length) {
+        alert("Please answer question 4");
+    }
+    else if (!$('input[name=question5]:checked').length) {
+        alert("Please answer question 5");
+    }
+    else if (!$('input[name=question6]:checked').length) {
+        alert("Please answer question 6");
+    }
+    else {
+        $.ajax({
+            method: 'POST',
+            url: '/django_project/json/',
+            dataType: 'json',
+            data: myJsonString
+        });
+        //writeUserData(); 
+    }        
 }
 function writeUserData(userId, name) {
     firebase.database().ref('users/' + userId).set({
         username: name,
-        answers" myJsonString
+        answers: myJsonString
     });
 }
-var save_button = '#submitJson';
-$(save_button).click(function(){
-    writeUserData();
-});
-
 </script>
-<a href = "../what_they_say_1" class = "button"><button id = "submitJson" onclick="returnJsonTop();">Send</button></a>
-      <div id="result"></div>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </html>
