@@ -108,12 +108,13 @@ function returnJsonTop(){
     }
     else {
         $.ajax({
-            method: 'POST',
-            url: '/django_project/json/',
-            dataType: 'json',
-            data: myJsonString
+          method: 'POST',
+          url: '/django_project/json/',
+          dataType: 'json',
+          data: myJsonString
         });
         //writeUserData(); 
+        //window.location = 
     }        
 }
 function writeUserData(userId, name) {

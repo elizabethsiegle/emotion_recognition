@@ -27,11 +27,26 @@ def rotate(request):
 def Index(request):
     return render(request, 'index.html')
 
+def Gif_index(request):
+    return render(request, 'gif_index.html')
+
 def Guess_emotion_1(request):
     return render(request, 'static_images_guess_emotion.html')
 
 def What_they_say_1(request):
     return render(request, 'static_images_guess_thinking.html')
+
+def Guess_suggest_1(request):
+    return render(request, 'static_images_guess_suggest.html')
+
+def Guess_emotion_2(request):
+    return render(request, 'gif_guess_emotion.html')
+
+def What_they_say_2(request):
+    return render(request, 'gif_guess_thinking.html')
+
+def Guess_suggest_2(request):
+    return render(request, 'gif_guess_suggest.html')
 
 def returnjson(request):
     if request.is_ajax():
@@ -69,7 +84,8 @@ def save_static_1(request):
     db.child("answers").child("first")
     db.child("answers").push(data)
     #return HttpResponse("OK from firebase config views.py")
-    return render(request, 'static_images_guess_thinking.html')
+    #return render(request, 'static_images_guess_thinking.html')
+    return What_they_say_1(request)
 
 def save_static_2(request):
     config = {
@@ -99,3 +115,61 @@ def save_static_2(request):
     db.child("answers").push(data2)
     #return HttpResponse("OK from firebase config views.py")
     return render(request, 'static_images_guess_suggest.html')
+
+def save_static_3(request):
+    config = {
+        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+        "authDomain": "mythical-envoy-138318.firebaseapp.com",
+        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+        "serviceAccount": "MyProject-5eabf65db970.json",
+        "storageBucket": "mythical-envoy-138318.appspot.com"
+    }
+    data3 = {}
+    if 'questionsay1' in request.GET:
+        data3['q1'] = request.GET['questionsay1']
+    if 'questionsay2' in request.GET:
+        data3['q2'] = request.GET['questionsay2']
+    if 'questionsay3' in request.GET:
+        data3['q3'] = request.GET['questionsay3']
+    if 'questionsay4' in request.GET:
+        data3['q4'] = request.GET['questionsay4']
+    if 'questionsay5' in request.GET:
+        data3['q5'] = request.GET['questionsay5']
+    if 'questionsay6' in request.GET:
+        data3['q6'] = request.GET['questionsay6']
+    cred = credentials.Certificate('MyProject-5eabf65db970.json')
+    firebase = pyrebase.initialize_app(config)
+    db = firebase.database()
+    db.child("answers").child("third_static")
+    db.child("answers").push(data3)
+    #return HttpResponse("OK from firebase config views.py")
+    return render(request, 'gif_index.html')
+
+def save_gif_1(request):
+    config = {
+        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+        "authDomain": "mythical-envoy-138318.firebaseapp.com",
+        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+        "serviceAccount": "MyProject-5eabf65db970.json",
+        "storageBucket": "mythical-envoy-138318.appspot.com"
+    }
+    data_gif_1 = {}
+    if 'questiongif1' in request.GET:
+        data_gif_1['qg1'] = request.GET['questiongif1']
+    if 'questiongif2' in request.GET:
+        data['qg2'] = request.GET['questiongif2']
+    if 'questiongif3' in request.GET:
+        data['qg3'] = request.GET['questiongif3']
+    if 'questiongif4' in request.GET:
+        data['qg4'] = request.GET['questiongif4']
+    if 'questiongif5' in request.GET:
+        data['qg5'] = request.GET['questiongif5']
+    if 'questiongif6' in request.GET:
+        data['qg6'] = request.GET['questiongif6']
+    cred = credentials.Certificate('MyProject-5eabf65db970.json')
+    firebase = pyrebase.initialize_app(config)
+    db = firebase.database()
+    db.child("answers").child("first_gif")
+    db.child("answers").push(data_gif_1)
+    #return HttpResponse("OK from firebase config views.py")
+    return render(request, 'gif_guess_thinking.html')

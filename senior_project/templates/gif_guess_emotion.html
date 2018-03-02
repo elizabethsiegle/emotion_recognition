@@ -1,0 +1,127 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thesis project</title>
+  <meta property="og:title" content="Thesis"/>
+  <meta property="og:description" content="Lizzie's Senior Thesis (project)" />
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-database.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+    authDomain: "mythical-envoy-138318.firebaseapp.com",
+    databaseURL: "https://mythical-envoy-138318.firebaseio.com",
+    projectId: "mythical-envoy-138318",
+    storageBucket: "mythical-envoy-138318.appspot.com",
+    messagingSenderId: "780186137580"
+  };
+  firebase.initializeApp(config);
+</script>
+<style>
+</style>
+</head>
+<body>
+<form action= "{% url 'save_gif_1' %}" method="get">
+  <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
+    {% load static %} <div style="text-align:center"><img src="{%static '../static/images/static_images/happygif.gif'  %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
+    <span><input type="radio" name="questiongif1" id="happy" value="happy">Happy</input></span>
+        <span><input type="radio" name="questiongif1" id="sad" value="sad" >Sad</input></span>
+        <span><input type="radio" name="questiongif1" id="angry" value="angry">Angry</input></span>
+        <span><input type="radio" name="questiongif1" id="scared" value="scared" >Scared</input></span>
+</div>
+</div>
+<div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
+ {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/sadgif.gif' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
+      <span><input type="radio" name="questiongif2" id="angry" value="angry">Angry</input></span>
+        <span><input type="radio" name="questiongif2" id="sad" value="sad" >Sad</input></span>
+        <span><input type="radio" name="questiongif2" id="scared" value="scared">Scared</input></span>
+        <span><input type="radio" name="questiongif2" id="happy" value="happy" >Happy</input></span>
+</div>
+</div>
+<div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
+    {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/angrygif.gif' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
+<span><input type="radio" name="questiongif3" id="angry" value="angry">Angry</input></span>
+        <span><input type="radio" name="questiongif3" id="scared" value="scared" >Scared</input></span>
+        <span><input type="radio" name="questiongif3" id="happy" value="happy">Happy</input></span>
+        <span><input type="radio" name="questiongif3" id="sad" value="sad" >Sad</input></span>
+</div>
+</div>
+<div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
+ {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/scaredgif.gif' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
+<span><input type="radio" name="questiongif4" id="sad" value="sad">Sad</input></span>
+        <span><input type="radio" name="questiongif4" id="scared" value="scared" >Scared</input></span>
+        <span><input type="radio" name="questiongif4" id="angry" value="angry">Angry</input></span>
+        <span><input type="radio" name="questiongif4" id="happy" value="happy" >Happy</input></span>
+</div>
+</div>
+<div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
+    {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/surprisedgif.gif' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
+<span><input type="radio" name="questiongif5" id="surprised" value="surprised">Surprised</input></span>
+        <span><input type="radio" name="questiongif5" id="sad" value="sad" >Sad</input></span>
+        <span><input type="radio" name="questiongif5" id="angry" value="angry">Angry</input></span>
+        <span><input type="radio" name="questiongif5" id="scared" value="scared" >Scared</input></span>
+</div>
+</div>
+<div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
+ {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/disgustedgif.gif' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
+<span><input type="radio" name="questiongif6" id="scared" value="scared">Scared</input></span>
+        <span><input type="radio" name="questiongif6" id="happy" value="happy" >Happy</input></span>
+        <span><input type="radio" name="questiongif6" id="surprised" value="surprised">Surprised</input></span>
+        <span><input type="radio" name="questiongif6" id="disgusted" value="disgusted" >Disgusted</input></span>
+</div>
+</div>
+<div style="text-align:center"><input type = "submit" value = "send" id = "submitJson" onclick="returnJsonTop();"></div>
+</form>
+<script>
+var database= firebase.database();
+var ref = firebase.database().ref();
+var qg1 = $('input[name=questiongif1]:checked').val();
+var qg2 = $('input[name=questiongif2]:checked').val();
+var qg3 = $('input[name=questiongif3]:checked').val();
+var qg4 = $('input[name=questiongif4]:checked').val();
+var qg5 = $('input[name=questiongif5]:checked').val();
+var qg6 = $('input[name=questiongif6]:checked').val();
+var guess_emotions_gif_arr = [qg1, qg2, qg3, qg4, qg5, qg6];
+var myJsonString = JSON.stringify(guess_emotions_gif_arr);
+function returnJsonTop(){
+    if(!$('input[name=questiongif1]:checked').length) {
+        alert("Please answer question 1");
+    }
+    else if(!$('input[name=questiongif2]:checked').length) {
+        alert("Please answer question 2");
+    }
+    else if (!$('input[name=questiongif3]:checked').length) {
+        alert("Please answer question 3");
+    }
+    else if (!$('input[name=questiongif4]:checked').length) {
+        alert("Please answer question 4");
+    }
+    else if (!$('input[name=questiongif5]:checked').length) {
+        alert("Please answer question 5");
+    }
+    else if (!$('input[name=questiongif6]:checked').length) {
+        alert("Please answer question 6");
+    }
+else {
+        $.ajax({
+          method: 'POST',
+          url: '/django_project/json/',
+          dataType: 'json',
+          data: myJsonString
+        });
+        //writeUserData();
+        //window.location =
+    }
+}
+function writeUserData(userId, name) {
+    firebase.database().ref('users/' + userId).set({
+        username: name,
+        answers: myJsonString
+    });
+}
+</script>
+</body>
+</html>

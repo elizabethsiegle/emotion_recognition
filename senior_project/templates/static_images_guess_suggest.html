@@ -6,32 +6,25 @@
   <meta property="og:description" content="Lizzie's Senior Thesis (project)" />
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-database.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+    authDomain: "mythical-envoy-138318.firebaseapp.com",
+    databaseURL: "https://mythical-envoy-138318.firebaseio.com",
+    projectId: "mythical-envoy-138318",
+    storageBucket: "mythical-envoy-138318.appspot.com",
+    messagingSenderId: "780186137580"
+  };
+  firebase.initializeApp(config);
+</script>
 <style>
-.emotion_img img {
-  transform:          rotate(90def);
-  -ms-transform:      rotate(90deg);
-  -moz-transform:     rotate(90deg);
-  -webkit-transform:  rotate(90deg);
-  -o-transform:       rotate(90deg);
-}
-a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-    text-decoration: none;
-    color: green;
-    margin-bottom:0.5%;
-}
-.button {
-    width:50%;
-    border:1px solid #900;
-    margin-top:5%;
-    line-height:20px;
-}
 </style>
 </head>
 <body>
-<form action= "{% url 'save' %}" method="get">
+<form action= "{% url 'save_static_3' %}" method="get">
   <div class="question_box" style="text-align:center"><h3 class="h3">What might you say to this girl?</h3>
     {% load static %} <div class = "aQuestion"style="text-align:center"><img src="{% static '../static/images/static_images/angry.jpeg' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
         <span><input type="radio" name="questionsay1" id="sad" value="sad">"There, there, it'll be okay."</input></span>
@@ -80,15 +73,11 @@ a.button {
         <span><input type="radio" name="questionsay6" id="happy" value="happy" >"You got your first-choice internship! Wow!"</input></span>
 </div>
 </div>
+<div style="text-align:center"><input type = "submit" value = "send" id = "submitJson" onclick="returnJsonTop();"></div>
 </form>
-<div id = "warning"></div>
 <script>
-//function writeUserData(userId, name) {
-    //ref('users/' + userId).set({
-        //username: name,
-      //  answers: myJsonString
-    //});
-//}
+var database= firebase.database();
+var ref = firebase.database().ref();
 var q1 = $("input[name='questionsay1']:checked").val();
 var q2 = $("input[name='questionsay2']:checked").val();
 var q3 = $("input[name='questionsay3']:checked").val();
@@ -97,8 +86,7 @@ var q5 = $("input[name='questionsay5']:checked").val();
 var q6 = $("input[name='questionsay6']:checked").val();
 var answers_static_arr = [q1, q2, q3, q4, q5, q6];
 //check each radio button is clicked
-var $questions = $(".aQuestion");
-function next() {
+function returnJsonTop() {
     if(!$('input[name=questionsay1]:checked').length) {
         alert("Please answer question1");
     }
@@ -130,7 +118,5 @@ function next() {
     }
 }
 </script>
-<button id = "submitJson" onclick="next();">Send</button></a>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </html>
