@@ -6,6 +6,13 @@ from django.http import HttpResponse
 from PIL import Image as PilImage
 from models import Image
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+from StringIO import StringIO
+import base64
+
 def rotate(request):
     #get instance of model
     item=Image.objects.get(pk=1)
@@ -16,9 +23,12 @@ def rotate(request):
     rotated_image = im.rotate(90)
     rotated_image.save(item.image.file.name, overwrite=True)
     return HttpResponse(str(image.image))
-#import cloudinary
-#import cloudinary.uploader
-#import cloudinary.api
+
+cloudinary.config(
+    cloud_name= "thesis_idk",
+    api_key= "174463134696341",
+    api_secret= "IBCsfORYuuSUV-QoMcd6kuwnAqc"
+)
 # Create your views here.
 #if form.is_valid():
  #   new_image = form.save()
@@ -40,6 +50,13 @@ def Guess_suggest_1(request):
     return render(request, 'static_images_guess_suggest.html')
 
 def Guess_emotion_2(request):
+    #cloudinary.uploader.upload("/gifs/angrygif.gif")
+    #cloudinary.uploader.upload(idk)
+    #cloudinary.uploader.upload('/gifs/sadgif.gif')
+    #cloudinary.uploader.upload('/gifs/happygif.gif')
+    #cloudinary.uploader.upload('/gifs/disgustedgif.gif')
+    #cloudinary.uploader.upload('/gifs/surprisedgif.gif')
+    #cloudinary.uploader.upload('/gifs/scaredgif.gif')
     return render(request, 'gif_guess_emotion.html')
 
 def What_they_say_2(request):

@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
     'senior_project'
 )
 
@@ -132,3 +133,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     '/home/django/django_project/django_project/static/',
 )
+
+CLOUDINARY = {
+    'max_length': 200,
+}

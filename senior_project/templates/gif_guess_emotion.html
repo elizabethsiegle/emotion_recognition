@@ -19,6 +19,14 @@
     messagingSenderId: "780186137580"
   };
   firebase.initializeApp(config);
+
+  cloudinary.config(
+    cloud_name= "thesis_idk",
+    api_key= "174463134696341",
+    api_secret= "IBCsfORYuuSUV-QoMcd6kuwnAqc"
+)
+cloudinary.uploader.upload("../gifs/angrygif.gif")
+cloudinary.uploader.upload("../gifs/sadgif.gif")
 </script>
 <style>
 </style>
@@ -26,7 +34,10 @@
 <body>
 <form action= "{% url 'save_gif_1' %}" method="get">
   <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
-    {% load static %} <div style="text-align:center"><img src="{%static '../static/images/static_images/happygif.gif'  %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
+    <script>
+    cloudinary.CloudinaryImage("angrygif.gif").image(alt = "angry gif")
+    </script>
+    {% load cloudinary %} <div style="text-align:center">{% cloudinary "angrygif.gif" width=100 height=150 crop = "fill" %}<br>
     <span><input type="radio" name="questiongif1" id="happy" value="happy">Happy</input></span>
         <span><input type="radio" name="questiongif1" id="sad" value="sad" >Sad</input></span>
         <span><input type="radio" name="questiongif1" id="angry" value="angry">Angry</input></span>
@@ -34,40 +45,45 @@
 </div>
 </div>
 <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
- {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/sadgif.gif' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
-      <span><input type="radio" name="questiongif2" id="angry" value="angry">Angry</input></span>
+ {% load cloudinary %} <div style="text-align:center">
+<!--><img src="../gifs/sadgif.gif" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/>-->
+<br>      <span><input type="radio" name="questiongif2" id="angry" value="angry">Angry</input></span>
         <span><input type="radio" name="questiongif2" id="sad" value="sad" >Sad</input></span>
         <span><input type="radio" name="questiongif2" id="scared" value="scared">Scared</input></span>
         <span><input type="radio" name="questiongif2" id="happy" value="happy" >Happy</input></span>
 </div>
 </div>
 <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
-    {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/angrygif.gif' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
-<span><input type="radio" name="questiongif3" id="angry" value="angry">Angry</input></span>
+    {% load cloudinary %} <div style="text-align:center">
+<!--<img src="../gifs/angrygif.gif" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/>-->
+<br><span><input type="radio" name="questiongif3" id="angry" value="angry">Angry</input></span>
         <span><input type="radio" name="questiongif3" id="scared" value="scared" >Scared</input></span>
         <span><input type="radio" name="questiongif3" id="happy" value="happy">Happy</input></span>
         <span><input type="radio" name="questiongif3" id="sad" value="sad" >Sad</input></span>
 </div>
 </div>
 <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
- {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/scaredgif.gif' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
-<span><input type="radio" name="questiongif4" id="sad" value="sad">Sad</input></span>
+ {% load static %} <div style="text-align:center">
+<!--<img src="../gifs/scaredgif.gif" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/>-->
+<br><span><input type="radio" name="questiongif4" id="sad" value="sad">Sad</input></span>
         <span><input type="radio" name="questiongif4" id="scared" value="scared" >Scared</input></span>
         <span><input type="radio" name="questiongif4" id="angry" value="angry">Angry</input></span>
         <span><input type="radio" name="questiongif4" id="happy" value="happy" >Happy</input></span>
 </div>
 </div>
 <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
-    {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/surprisedgif.gif' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
-<span><input type="radio" name="questiongif5" id="surprised" value="surprised">Surprised</input></span>
+    {% load static %} <div style="text-align:center">
+<!--<img src="../gifs/surprisedgif.gif" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/>-->
+<br><span><input type="radio" name="questiongif5" id="surprised" value="surprised">Surprised</input></span>
         <span><input type="radio" name="questiongif5" id="sad" value="sad" >Sad</input></span>
         <span><input type="radio" name="questiongif5" id="angry" value="angry">Angry</input></span>
         <span><input type="radio" name="questiongif5" id="scared" value="scared" >Scared</input></span>
 </div>
 </div>
 <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
- {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/disgustedgif.gif' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
-<span><input type="radio" name="questiongif6" id="scared" value="scared">Scared</input></span>
+ {% load static %} <div style="text-align:center">
+<!--<img src="../gifs/disgustedgif.gif" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/>-->
+<br><span><input type="radio" name="questiongif6" id="scared" value="scared">Scared</input></span>
         <span><input type="radio" name="questiongif6" id="happy" value="happy" >Happy</input></span>
         <span><input type="radio" name="questiongif6" id="surprised" value="surprised">Surprised</input></span>
         <span><input type="radio" name="questiongif6" id="disgusted" value="disgusted" >Disgusted</input></span>
