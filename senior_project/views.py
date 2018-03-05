@@ -3,36 +3,17 @@ import firebase_admin
 import pyrebase
 from firebase_admin import db, credentials
 from django.http import HttpResponse
-from PIL import Image as PilImage
-from models import Image
-
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-
-from StringIO import StringIO
-import base64
-
-def rotate(request):
-    #get instance of model
-    item=Image.objects.get(pk=1)
-    #open image for PIL to access
-    im = PilImage.open(image.image)
-
-    #rotate by built-in PIL command
-    rotated_image = im.rotate(90)
-    rotated_image.save(item.image.file.name, overwrite=True)
-    return HttpResponse(str(image.image))
+from cloudinary.forms import cl_init_js_callbacks
 
 cloudinary.config(
-    cloud_name= "thesis_idk",
+    cloud_name= "lizziepika",
     api_key= "174463134696341",
     api_secret= "IBCsfORYuuSUV-QoMcd6kuwnAqc"
 )
 # Create your views here.
-#if form.is_valid():
- #   new_image = form.save()
-  #  return redirect('img:detail', pk=new_image.id)
 
 def Index(request):
     return render(request, 'index.html')
@@ -50,19 +31,37 @@ def Guess_suggest_1(request):
     return render(request, 'static_images_guess_suggest.html')
 
 def Guess_emotion_2(request):
-    #cloudinary.uploader.upload("/gifs/angrygif.gif")
-    #cloudinary.uploader.upload(idk)
-    #cloudinary.uploader.upload('/gifs/sadgif.gif')
-    #cloudinary.uploader.upload('/gifs/happygif.gif')
-    #cloudinary.uploader.upload('/gifs/disgustedgif.gif')
-    #cloudinary.uploader.upload('/gifs/surprisedgif.gif')
-    #cloudinary.uploader.upload('/gifs/scaredgif.gif')
+    #cloudinary.CloudinaryVideo("happyvid.mp4").video(alt="happy vid", loop=True)
+    cloudinary.CloudinaryVideo("happyvid").video(width=300, height=200, crop = "pad", background = "blue", 
+  preload = "none", controls = True,
+  fallback_content = "Your browser does not support HTML5 video tags")
+    cloudinary.CloudinaryVideo("sadvid")
+    cloudinary.CloudinaryVideo('surprisedvid')
+    cloudinary.CloudinaryVideo('angryvid')
+    cloudinary.CloudinaryVideo('disgustedvid')
+    cloudinary.CloudinaryVideo('scaredvid')
     return render(request, 'gif_guess_emotion.html')
 
 def What_they_say_2(request):
+    cloudinary.CloudinaryVideo("happyvid").video(width=300, height=200, crop = "pad", background = "blue",
+  preload = "none", controls = True,
+  fallback_content = "Your browser does not support HTML5 video tags")
+    cloudinary.CloudinaryVideo("sadvid")
+    cloudinary.CloudinaryVideo('surprisedvid')
+    cloudinary.CloudinaryVideo('angryvid')
+    cloudinary.CloudinaryVideo('disgustedvid')
+    cloudinary.CloudinaryVideo('scaredvid')
     return render(request, 'gif_guess_thinking.html')
 
 def Guess_suggest_2(request):
+    cloudinary.CloudinaryVideo("happyvid").video(width=300, height=200, crop = "pad", background = "blue",
+  preload = "none", controls = True,
+  fallback_content = "Your browser does not support HTML5 video tags")
+    cloudinary.CloudinaryVideo("sadvid")
+    cloudinary.CloudinaryVideo('surprisedvid')
+    cloudinary.CloudinaryVideo('angryvid')
+    cloudinary.CloudinaryVideo('disgustedvid')
+    cloudinary.CloudinaryVideo('scaredvid')
     return render(request, 'gif_guess_suggest.html')
 
 def returnjson(request):
@@ -190,3 +189,61 @@ def save_gif_1(request):
     db.child("answers").push(data_gif_1)
     #return HttpResponse("OK from firebase config views.py")
     return render(request, 'gif_guess_thinking.html')
+
+def save_gif_2(request):
+    config = {
+        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+        "authDomain": "mythical-envoy-138318.firebaseapp.com",
+        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+        "serviceAccount": "MyProject-5eabf65db970.json",
+        "storageBucket": "mythical-envoy-138318.appspot.com"
+    }
+    data_gif_2 = {}
+    if 'giftheysay1' in request.GET:
+        data_gif_1['qg1'] = request.GET['giftheysay1']
+    if 'giftheysay2' in request.GET:
+        data['qg2'] = request.GET['giftheysay2']
+    if 'giftheysay3' in request.GET:
+        data['qg3'] = request.GET['giftheysay3']
+    if 'giftheysay4' in request.GET:
+        data['qg4'] = request.GET['giftheysay4']
+    if 'giftheysay5' in request.GET:
+        data['qg5'] = request.GET['giftheysay5']
+    if 'giftheysay6' in request.GET:
+        data['qg6'] = request.GET['giftheysay6']
+    cred = credentials.Certificate('MyProject-5eabf65db970.json')
+    firebase = pyrebase.initialize_app(config)
+    db = firebase.database()
+    db.child("answers").child("second_gif")
+    db.child("answers").push(data_gif_2)
+    #return HttpResponse("OK from firebase config views.py")
+    return render(request, 'gif_guess_suggest.html')
+
+def save_gif_3(request):
+    config = {
+        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+        "authDomain": "mythical-envoy-138318.firebaseapp.com",
+        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+        "serviceAccount": "MyProject-5eabf65db970.json",
+        "storageBucket": "mythical-envoy-138318.appspot.com"
+    }
+    data_gif_3 = {}
+    if 'gifsuggest1' in request.GET:
+        data_gif_1['qg1'] = request.GET['gifsuggest1']
+    if 'gifsuggest2' in request.GET:
+        data['qg2'] = request.GET['gifsuggest2']
+    if 'gifsuggest3' in request.GET:
+        data['qg3'] = request.GET['gifsuggest3']
+    if 'gifsuggest4' in request.GET:
+        data['qg4'] = request.GET['gifsuggest4']
+    if 'gifsuggest5' in request.GET:
+        data['qg5'] = request.GET['gifsuggest5']
+    if 'gifsuggest6' in request.GET:
+        data['qg6'] = request.GET['gifsuggest6']
+    cred = credentials.Certificate('MyProject-5eabf65db970.json')
+    firebase = pyrebase.initialize_app(config)
+    db = firebase.database()
+    db.child("answers").child("third_gif")
+    db.child("answers").push(data_gif_3)
+    #return HttpResponse("OK from firebase config views.py")
+    return render(request, 'video_sound_index.html')

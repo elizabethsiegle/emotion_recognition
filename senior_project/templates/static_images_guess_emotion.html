@@ -4,7 +4,9 @@
   <title>Thesis project</title>
   <meta property="og:title" content="Thesis"/>
   <meta property="og:description" content="Lizzie's Senior Thesis (project)" />
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
+  {% load cloudinary %}
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
+  {% cloudinary_includes %}
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-database.js"></script>
@@ -27,53 +29,89 @@
 <body>
 <form action= "{% url 'save_static_1' %}" method="get">
   <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
-    {% load static %} <div style="text-align:center"><img src="{%static '../static/images/static_images/joy.jpeg'  %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>        
-    <span><input type="radio" name="question1" id="happy" value="happy">Happy</input></span>
+    </br>
+    </br>
+    <div style="text-align:center"><img src="http://res.cloudinary.com/lizziepika/image/upload/a_360/v1520279809/joy.jpg" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/>
+</br>
+</br>
+<span><input type="radio" name="question1" id="happy" value="happy">Happy</input></span>
         <span><input type="radio" name="question1" id="sad" value="sad" >Sad</input></span>
         <span><input type="radio" name="question1" id="angry" value="angry">Angry</input></span>
         <span><input type="radio" name="question1" id="scared" value="scared" >Scared</input></span>
 </div>
 </div>
+</br>
+</br>
 <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
-    {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/sad.jpeg' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
-      <span><input type="radio" name="question2" id="angry" value="angry">Angry</input></span>
+    </br>
+    </br>
+    <div style="text-align:center"><img src="http://res.cloudinary.com/lizziepika/image/upload/a_360/v1520279803/sad.jpg" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/>
+</br>
+</br>
+<span><input type="radio" name="question2" id="angry" value="angry">Angry</input></span>
         <span><input type="radio" name="question2" id="sad" value="sad" >Sad</input></span>
         <span><input type="radio" name="question2" id="scared" value="scared">Scared</input></span>
         <span><input type="radio" name="question2" id="happy" value="happy" >Happy</input></span> 
+</br>
+</br>
 </div>
 </div>
 <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
-    {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/angry.jpeg' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
+    </br>
+    </br>
+    <div style="text-align:center"><img src="http://res.cloudinary.com/lizziepika/image/upload/a_360/v1520280331/angry.jpg" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/>
+</br>
+</br>
 <span><input type="radio" name="question3" id="angry" value="angry">Angry</input></span>
         <span><input type="radio" name="question3" id="scared" value="scared" >Scared</input></span>
         <span><input type="radio" name="question3" id="happy" value="happy">Happy</input></span>
         <span><input type="radio" name="question3" id="sad" value="sad" >Sad</input></span>
 </div>
 </div>
+</br>
+</br>
 <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
-    {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/scared.jpeg' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
+    </br>
+    </br>
+    <div style="text-align:center"><img src="http://res.cloudinary.com/lizziepika/image/upload/a_360/v1520279800/scared.jpg" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/>
+</br>
+</br>
 <span><input type="radio" name="question4" id="sad" value="sad">Sad</input></span>
         <span><input type="radio" name="question4" id="scared" value="scared" >Scared</input></span>
         <span><input type="radio" name="question4" id="angry" value="angry">Angry</input></span>
         <span><input type="radio" name="question4" id="happy" value="happy" >Happy</input></span>
 </div>
 </div>
+</br>
+</br>
 <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
-    {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/surprised.jpeg' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
+    </br>
+    </br>
+    <div style="text-align:center"><img src="http://res.cloudinary.com/lizziepika/image/upload/a_360/v1520279793/surprised.jpg" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/>
+</br>
+</br>
 <span><input type="radio" name="question5" id="surprised" value="surprised">Surprised</input></span>
         <span><input type="radio" name="question5" id="sad" value="sad" >Sad</input></span>
         <span><input type="radio" name="question5" id="angry" value="angry">Angry</input></span>
         <span><input type="radio" name="question5" id="scared" value="scared" >Scared</input></span>
 </div>
-</div>      
+</div>
+</br>
+</br>      
 <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
-    {% load static %} <div style="text-align:center"><img src="{% static '../static/images/static_images/disgusted.jpeg' %}" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/><br>
+    </br>
+    </br>
+    <div style="text-align:center"><img src="http://res.cloudinary.com/lizziepika/image/upload/a_360/v1520279796/disgusted.jpg" margin-top: "-25%" margin-bottom: "40px" height="300" width="300"/>
+</br>
+</br>
 <span><input type="radio" name="question6" id="scared" value="scared">Scared</input></span>
         <span><input type="radio" name="question6" id="happy" value="happy" >Happy</input></span>
         <span><input type="radio" name="question6" id="surprised" value="surprised">Surprised</input></span>
         <span><input type="radio" name="question6" id="disgusted" value="disgusted" >Disgusted</input></span>
 </div>
 </div>
+</br>
+</br>
 <div style="text-align:center"><input type = "submit" value = "send" id = "submitJson" onclick="returnJsonTop();"></div>
 </form>
 <script>
