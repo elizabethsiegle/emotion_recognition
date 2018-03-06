@@ -21,6 +21,9 @@ def Index(request):
 def Gif_index(request):
     return render(request, 'gif_index.html')
 
+def Vid_index(request):
+    return render(request, 'vid_index.html')
+
 def Guess_emotion_1(request):
     return render(request, 'static_images_guess_emotion.html')
 
@@ -173,15 +176,15 @@ def save_gif_1(request):
     if 'questiongif1' in request.GET:
         data_gif_1['qg1'] = request.GET['questiongif1']
     if 'questiongif2' in request.GET:
-        data['qg2'] = request.GET['questiongif2']
+        data_gif_1['qg2'] = request.GET['questiongif2']
     if 'questiongif3' in request.GET:
-        data['qg3'] = request.GET['questiongif3']
+        data_gif_1['qg3'] = request.GET['questiongif3']
     if 'questiongif4' in request.GET:
-        data['qg4'] = request.GET['questiongif4']
+        data_gif_1['qg4'] = request.GET['questiongif4']
     if 'questiongif5' in request.GET:
-        data['qg5'] = request.GET['questiongif5']
+        data_gif_1['qg5'] = request.GET['questiongif5']
     if 'questiongif6' in request.GET:
-        data['qg6'] = request.GET['questiongif6']
+        data_gif_1['qg6'] = request.GET['questiongif6']
     cred = credentials.Certificate('MyProject-5eabf65db970.json')
     firebase = pyrebase.initialize_app(config)
     db = firebase.database()
@@ -200,17 +203,17 @@ def save_gif_2(request):
     }
     data_gif_2 = {}
     if 'giftheysay1' in request.GET:
-        data_gif_1['qg1'] = request.GET['giftheysay1']
+        data_gif_2['qg1'] = request.GET['giftheysay1']
     if 'giftheysay2' in request.GET:
-        data['qg2'] = request.GET['giftheysay2']
+        data_gif_2['qg2'] = request.GET['giftheysay2']
     if 'giftheysay3' in request.GET:
-        data['qg3'] = request.GET['giftheysay3']
+        data_gif_2['qg3'] = request.GET['giftheysay3']
     if 'giftheysay4' in request.GET:
-        data['qg4'] = request.GET['giftheysay4']
+        data_gif_2['qg4'] = request.GET['giftheysay4']
     if 'giftheysay5' in request.GET:
-        data['qg5'] = request.GET['giftheysay5']
+        data_gif_2['qg5'] = request.GET['giftheysay5']
     if 'giftheysay6' in request.GET:
-        data['qg6'] = request.GET['giftheysay6']
+        data_gif_2['qg6'] = request.GET['giftheysay6']
     cred = credentials.Certificate('MyProject-5eabf65db970.json')
     firebase = pyrebase.initialize_app(config)
     db = firebase.database()
@@ -229,17 +232,17 @@ def save_gif_3(request):
     }
     data_gif_3 = {}
     if 'gifsuggest1' in request.GET:
-        data_gif_1['qg1'] = request.GET['gifsuggest1']
+        data_gif_3['qg1'] = request.GET['gifsuggest1']
     if 'gifsuggest2' in request.GET:
-        data['qg2'] = request.GET['gifsuggest2']
+        data_gif_3['qg2'] = request.GET['gifsuggest2']
     if 'gifsuggest3' in request.GET:
-        data['qg3'] = request.GET['gifsuggest3']
+        data_gif_3['qg3'] = request.GET['gifsuggest3']
     if 'gifsuggest4' in request.GET:
-        data['qg4'] = request.GET['gifsuggest4']
+        data_gif_3['qg4'] = request.GET['gifsuggest4']
     if 'gifsuggest5' in request.GET:
-        data['qg5'] = request.GET['gifsuggest5']
+        data_gif_3['qg5'] = request.GET['gifsuggest5']
     if 'gifsuggest6' in request.GET:
-        data['qg6'] = request.GET['gifsuggest6']
+        data_gif_3['qg6'] = request.GET['gifsuggest6']
     cred = credentials.Certificate('MyProject-5eabf65db970.json')
     firebase = pyrebase.initialize_app(config)
     db = firebase.database()

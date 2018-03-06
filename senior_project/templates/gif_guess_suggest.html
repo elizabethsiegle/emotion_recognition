@@ -1,0 +1,181 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thesis project</title>
+  <meta property="og:title" content="Thesis"/>
+  <meta property="og:description" content="Lizzie's Senior Thesis (project)" />
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-database.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+    authDomain: "mythical-envoy-138318.firebaseapp.com",
+    databaseURL: "https://mythical-envoy-138318.firebaseio.com",
+    projectId: "mythical-envoy-138318",
+    storageBucket: "mythical-envoy-138318.appspot.com",
+    messagingSenderId: "780186137580"
+  };
+  firebase.initializeApp(config);
+</script>
+<style>
+</style>
+</head>
+<body>
+<form action= "{% url 'save_gif_3' %}" method="get">
+ <div class="question_box" style="text-align:center"><h3 class="h3">What might you say to this girl?</h3>
+    </br>
+    </br>
+    <div style="text-align:center">
+<video id="angry" loop muted autoplay>
+<source src="http://res.cloudinary.com/lizziepika/video/upload/c_scale,w_156/v1520258944/angryvid.mp4" width="100" height = "100" type='video/mp4'/>
+    </video>
+    </br>
+    </br>
+    <span><input type="radio" name="gifsuggest1" id="sad" value="sad">"You're strong, you'll be okay."</input></span>
+        <span><input type="radio" name="gifsuggest1" id="happy" value="happy" >"Congratulations, way to go."</input></span>
+        <span><input type="radio" name="gifsuggest1" id="scared" value="scared">"Go get someone to kill that spider, I'm not going any closer"</input></span>
+        <span><input type="radio" name="gifsuggest1" id="angry" value="angry" >"Yeesh, she was mean to you, so I'd be mad too."</input></span>
+</div>
+</div>
+</br>
+</br>
+<div class="question_box" style="text-align:center"><h3 class="h3">What might you say to this person?</h3>
+    </br>
+    </br>
+<div style="text-align:center">
+<video id="joy" loop muted autoplay>
+<source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,w_156/v1520258803/happyvid.mp4" type='video/mp4'>
+</video>
+</br>
+    </br>
+    <span><input type="radio" name="gifsuggest2" id="happy" value="happy">"Good idea!"</input></span>
+        <span><input type="radio" name="gifsuggest2" id="angry" value="angry" >"Who spit in your oatmeal this morning?"</input></span>
+        <span><input type="radio" name="gifsuggest2" id="scared" value="scared">"Oof, that was one horrific axe murderer movie"</input></span>
+        <span><input type="radio" name="gifsuggest2" id="sad" value="sad">"Rest in peace."</input></span>
+</div>
+</div>
+</br>
+</br>
+<div class="question_box" style="text-align:center"><h3 class="h3">What might you say to this person?</h3>
+    </br>
+    </br>
+    <div style="text-align:center">
+<video id="sad" loop muted autoplay>
+<source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,w_156/v1520258803/sadvid.mp4" type='video/mp4'></video>
+</br>
+</br>
+<span><input type="radio" name="gifsuggest3" id="angry" value="angry">"I would be peeved too if a bird pooped on me."</input></span>
+        <span><input type="radio" name="gifsuggest3" id="sad" value="sad">"Don't tear up!"</input></span>
+        <span><input type="radio" name="gifsuggest3" id="happy" value="happy">"Our team is going to the next round!"</input></span>
+        <span><input type="radio" name="gifsuggest3" id="scared" value="scared" >"Is there a big spider behind me?"</input></span>
+</div>
+</div>
+</br>
+</br>
+<div class="question_box" style="text-align:center"><h3 class="h3">What might you say to this person?</h3>
+    </br>
+    </br>
+    <div style="text-align:center">
+        <video id="disgusted" loop muted autoplay>
+            <source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,w_156/v1520258944/disgustedvid.mp4" type='video/mp4'>
+        </video>
+    </br>
+</br>
+<span><input type="radio" name="gifsuggest4" id="disgusted" value="disgusted">"Ew, that is so gross, which explains why you're sitting all the way over there."</input></span>
+        <span><input type="radio" name="gifsuggest4" id="happy" value="happy" >"Why are you smiling so much?"</input></span>
+        <span><input type="radio" name="gifsuggest4" id="surprised" value="surprised">"Wow, you did better than me even after I did more work, hmm."</input></span>
+        <span><input type="radio" name="gifsuggest4" id="angry" value="angry">"How did she spill smoothie on your new shoes?"</input></span>
+</div>
+</div>
+</br>
+</br>
+<div class="question_box" style="text-align:center"><h3 class="h3">What might you say to this person?</h3>
+    </br>
+    </br>
+    <div style="text-align:center">
+        <video id="surprised" loop muted autoplay>
+<source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,w_156/v1520258944/surprisedvid.mp4" type='video/mp4'>
+</video>
+</br>
+</br>
+<span><input type="radio" name="gifsuggest5" id="happy" value="happy">"Is someone brightening your day?"</input></span>
+        <span><input type="radio" name="gifsuggest5" id="sad" value="sad">"Who rained on your parade?"</input></span>
+        <span><input type="radio" name="gifsuggest5" id="angry" value="angry">"You should be mad if they sat on your diorama!"</input></span>
+        <span><input type="radio" name="gifsuggest5" id="surprised" value="surprised">"Gasp...what were the chances of seeing that celebrity?"</input></span>
+</div>
+</div>
+</br>
+</br>
+<div class="question_box" style="text-align:center"><h3 class="h3">What might you say to this person?</h3>
+    </br>
+    </br>
+    <div style="text-align:center">
+        <video id="scared" loop muted autoplay>
+<source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,w_156/v1520258944/scaredvid.mp4" type='video/mp4'>
+    </video>
+</br>
+</br>
+<span><input type="radio" name="gifsuggest6" id="surprised" value="surprised">"Who surprised you with flowers?"</input></span>
+        <span><input type="radio" name="gifsuggest6" id="sad" value="sad">"Did you get put in the lower group, then, huh?"</input></span>
+        <span><input type="radio" name="gifsuggest6" id="scared" value="scared">"That ghost story...woah..."</input></span>
+        <span><input type="radio" name="gifsuggest6" id="happy" value="happy" >"I'm guessing your date said yes to the movie invitation you proposed?"</input></span>
+</div>
+</div>
+</br>
+</br>
+<div style="text-align:center"><input type = "submit" value = "send" id = "submitJson" onclick="returnJsonTop();"></div>
+</form>
+<script>
+var database= firebase.database();
+var ref = firebase.database().ref();
+var qg1 = $('input[name=gifsuggest1]:checked').val();
+var qg2 = $('input[name=gifsuggest2]:checked').val();
+var qg3 = $('input[name=gifsuggest3]:checked').val();
+var qg4 = $('input[name=gifsuggest4]:checked').val();
+var qg5 = $('input[name=gifsuggest5]:checked').val();
+var qg6 = $('input[name=gifsuggest6]:checked').val();
+var suggest_gif_arr = [qg1, qg2, qg3, qg4, qg5, qg6];
+var myJsonString = JSON.stringify(suggest_gif_arr);
+function returnJsonTop(){
+    if(!$('input[name=gifsuggest1]:checked').length) {
+        alert("Please answer question 1");
+    }
+    else if(!$('input[name=gifsuggest2]:checked').length) {
+        alert("Please answer question 2");
+    }
+    else if (!$('input[name=gifsuggest3]:checked').length) {
+        alert("Please answer question 3");
+    }
+    else if (!$('input[name=gifsuggest4]:checked').length) {
+        alert("Please answer question 4");
+    }
+    else if (!$('input[name=gifsuggest5]:checked').length) {
+        alert("Please answer question 5");
+    }
+    else if (!$('input[name=gifsuggest6]:checked').length) {
+        alert("Please answer question 6");
+    }
+else {
+        $.ajax({
+          method: 'POST',
+          url: '/django_project/json/',
+          dataType: 'json',
+          data: myJsonString
+        });
+        //writeUserData();
+        //window.location =
+    }
+}
+function writeUserData(userId, name) {
+    firebase.database().ref('users/' + userId).set({
+        username: name,
+        answers: myJsonString
+    });
+}
+</script>
+</body>
+</html>
+
