@@ -30,9 +30,9 @@ urlpatterns = [
     url(r'^guess_emotion_2', views.Guess_emotion_2, name='Guess_emotion_2'),
     url(r'guess_thinking_2', views.What_they_say_2, name='What_they_say_2'),
     url(r'guess_suggest_2', views.Guess_suggest_2, name='Guess_suggest_2'),
-    #url(r'guess_emotion_3', views.Guess_emotion_3, name='Guess_emotion_3'),
-    #url(r'what_they_say_3', views.What_they_say_3, name='What_they_say_3'),
-    #url(r'guess_suggest_3', views.Guess_suggest_3, name='Guess_suggest_3'),
+    url(r'guess_emotion_3', views.Guess_emotion_3, name='Guess_emotion_3'),
+    url(r'what_they_say_3', views.What_they_say_3, name='What_they_say_3'),
+    url(r'guess_suggest_3', views.Guess_suggest_3, name='Guess_suggest_3'),
     url(r'^json/$', views.returnjson, name='returnjson'),
     url(r'^save_static_1', views.save_static_1, name='save_static_1'),
     url(r'^save_static_2', views.save_static_2, name='save_static_2'),
@@ -40,5 +40,8 @@ urlpatterns = [
     url(r'^save_gif_1', views.save_gif_1, name='save_gif_1'),
     url(r'^save_gif_2', views.save_gif_2, name='save_gif_2'),
     url(r'^save_gif_3', views.save_gif_3, name='save_gif_3'),
+    url(r'^save_vid_1', views.save_vid_1, name='save_vid_1'),
+    url(r'^save_vid_2', views.save_vid_2, name='save_vid_2'),
+    url(r'^save_vid_3', views.save_vid_3, name='save_vid_3'),
 ]
 

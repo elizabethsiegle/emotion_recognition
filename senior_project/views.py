@@ -67,6 +67,39 @@ def Guess_suggest_2(request):
     cloudinary.CloudinaryVideo('scaredvid')
     return render(request, 'gif_guess_suggest.html')
 
+def Guess_emotion_3(request):
+    cloudinary.CloudinaryVideo("happysoundvid").video(width=300, height=200, crop = "pad", background = "blue",
+  preload = "none", controls = True,
+  fallback_content = "Your browser does not support HTML5 video tags")
+    cloudinary.CloudinaryVideo("sadsoundvid")
+    cloudinary.CloudinaryVideo('surprisedsoundvid')
+    cloudinary.CloudinaryVideo('angrysoundvid')
+    cloudinary.CloudinaryVideo('disgustedsoundvid')
+    cloudinary.CloudinaryVideo('scaredsoundvid')
+    return render(request, 'video_sound_guess_emotion.html')
+
+def What_they_say_3(request):
+    cloudinary.CloudinaryVideo("happysoundvid").video(width=300, height=200, crop = "pad", background = "blue",
+  preload = "none", controls = True,
+  fallback_content = "Your browser does not support HTML5 video tags")
+    cloudinary.CloudinaryVideo("sadsoundvid")
+    cloudinary.CloudinaryVideo('surprisedsoundvid')
+    cloudinary.CloudinaryVideo('angrysoundvid')
+    cloudinary.CloudinaryVideo('disgustedsoundvid')
+    cloudinary.CloudinaryVideo('scaredsoundvid')
+    return render(request, 'video_sound_guess_thinking.html')
+
+def Guess_suggest_3(request):
+    cloudinary.CloudinaryVideo("happysoundvid").video(width=300, height=200, crop = "pad", background = "blue",
+  preload = "none", controls = True,
+  fallback_content = "Your browser does not support HTML5 video tags")
+    cloudinary.CloudinaryVideo("sadsoundvid")
+    cloudinary.CloudinaryVideo('surprisedsoundvid')
+    cloudinary.CloudinaryVideo('angrysoundvid')
+    cloudinary.CloudinaryVideo('disgustedsoundvid')
+    cloudinary.CloudinaryVideo('scaredsoundvid')
+    return render(request, 'video_sound_guess_suggest.html')
+
 def returnjson(request):
     if request.is_ajax():
         request_data = request.POST
@@ -134,6 +167,93 @@ def save_static_2(request):
     db.child("answers").push(data2)
     #return HttpResponse("OK from firebase config views.py")
     return render(request, 'static_images_guess_suggest.html')
+
+def save_vid_1(request):
+    config = {
+        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+        "authDomain": "mythical-envoy-138318.firebaseapp.com",
+        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+        "serviceAccount": "MyProject-5eabf65db970.json",
+        "storageBucket": "mythical-envoy-138318.appspot.com"
+    }
+    datavid1 = {}
+    if 'questionvid1' in request.GET:
+        datavid1['qv1'] = request.GET['questionvid1']
+    if 'questionvid2' in request.GET:
+        datavid1['qv2'] = request.GET['questionvid2']
+    if 'questionvid3' in request.GET:
+        datavid1['qv3'] = request.GET['questionvid3']
+    if 'questionvid4' in request.GET:
+        datavid1['qv4'] = request.GET['questionvid4']
+    if 'questionvid5' in request.GET:
+        datavid1['qv5'] = request.GET['questionvid5']
+    if 'questionvid6' in request.GET:
+        datavid1['qv6'] = request.GET['questionvid6']
+    cred = credentials.Certificate('MyProject-5eabf65db970.json')
+    firebase = pyrebase.initialize_app(config)
+    db = firebase.database()
+    db.child("answers").child("first_sound_video")
+    db.child("answers").push(datavid1)
+    #return HttpResponse("OK from firebase config views.py")
+    return render(request, 'video_sound_guess_thinking.html')
+
+def save_vid_2(request):
+    config = {
+        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+        "authDomain": "mythical-envoy-138318.firebaseapp.com",
+        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+        "serviceAccount": "MyProject-5eabf65db970.json",
+        "storageBucket": "mythical-envoy-138318.appspot.com"
+    }
+    datavid2 = {}
+    if 'vidtheysay1' in request.GET:
+        datavid2['qvs1'] = request.GET['vidtheysay1']
+    if 'vidtheysay2' in request.GET:
+        datavid2['qvs2'] = request.GET['vidtheysay2']
+    if 'vidtheysay3' in request.GET:
+        datavid2['qvs3'] = request.GET['vidtheysay3']
+    if 'vidtheysay4' in request.GET:
+        datavid2['qvs4'] = request.GET['vidtheysay4']
+    if 'vidtheysay5' in request.GET:
+        datavid2['qvs5'] = request.GET['vidtheysay5']
+    if 'vidtheysay6' in request.GET:
+        datavid2['qvs6'] = request.GET['vidtheysay6']
+    cred = credentials.Certificate('MyProject-5eabf65db970.json')
+    firebase = pyrebase.initialize_app(config)
+    db = firebase.database()
+    db.child("answers").child("second_sound_video")
+    db.child("answers").push(datavid2)
+    #return HttpResponse("OK from firebase config views.py")
+    return render(request, 'video_sound_guess_suggest.html')
+
+def save_vid_3(request):
+    config = {
+        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+        "authDomain": "mythical-envoy-138318.firebaseapp.com",
+        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+        "serviceAccount": "MyProject-5eabf65db970.json",
+        "storageBucket": "mythical-envoy-138318.appspot.com"
+    }
+    datavid3 = {}
+    if 'vidsuggest1' in request.GET:
+        datavid3['vs1'] = request.GET['vidsuggest1']
+    if 'vidsuggest2' in request.GET:
+        datavid3['vs2'] = request.GET['vidsuggest2']
+    if 'vidsuggest3' in request.GET:
+        datavid3['vs3'] = request.GET['vidsuggest3']
+    if 'vidsuggest4' in request.GET:
+        datavid3['vs4'] = request.GET['vidsuggest4']
+    if 'vidsuggest5' in request.GET:
+        datavid3['vs5'] = request.GET['vidsuggest5']
+    if 'vidsuggest6' in request.GET:
+        datavid3['vs6'] = request.GET['vidsuggest6']
+    cred = credentials.Certificate('MyProject-5eabf65db970.json')
+    firebase = pyrebase.initialize_app(config)
+    db = firebase.database()
+    db.child("answers").child("third_sound_video")
+    db.child("answers").push(datavid3)
+    #return HttpResponse("OK from firebase config views.py")
+    return render(request, 'final.html')
 
 def save_static_3(request):
     config = {

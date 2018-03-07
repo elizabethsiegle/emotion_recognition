@@ -1,0 +1,178 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thesis project</title>
+  <meta property="og:title" content="Thesis"/>
+  <meta property="og:description" content="Lizzie's Senior Thesis (project)" />
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-database.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+    authDomain: "mythical-envoy-138318.firebaseapp.com",
+    databaseURL: "https://mythical-envoy-138318.firebaseio.com",
+    projectId: "mythical-envoy-138318",
+    storageBucket: "mythical-envoy-138318.appspot.com",
+    messagingSenderId: "780186137580"
+  };
+  firebase.initializeApp(config);
+</script>
+</head>
+<body>
+<form action= "{% url 'save_vid_1' %}" method="get">
+  <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
+</br>
+</br>
+<div style = "text-align:center">
+<video id="joy_vid" loop autoplay>
+<source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,h_317,w_190/v1520373561/happysoundvid.mp4" type='video/mp4'>
+</video>
+</br>
+</br> 
+<span><input type="radio" name="questionvid1" id="happy" value="happy">Happy</input></span>
+        <span><input type="radio" name="questionvid1" id="sad" value="sad" >Sad</input></span>
+        <span><input type="radio" name="questionvid1" id="angry" value="angry">Angry</input></span>
+        <span><input type="radio" name="questionvid1" id="scared" value="scared" >Scared</input></span>
+</div>
+</div>
+</br>
+</br>
+<div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
+</br>
+</br>
+<div style="text-align:center">
+<video id="sad_vid" loop autoplay>
+<source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,h_317,w_190/v1520373535/sadsoundvid.mp4" width="100" height = "100" type='video/mp4'>   
+</video>
+</br>
+</br>
+<span><input type="radio" name="questionvid2" id="angry" value="angry">Angry</input></span>
+        <span><input type="radio" name="questionvid2" id="sad" value="sad" >Sad</input></span>
+        <span><input type="radio" name="questionvid2" id="scared" value="scared">Scared</input></span>
+        <span><input type="radio" name="questionvid2" id="happy" value="happy" >Happy</input></span>
+</div>
+</div>
+</br>
+</br>
+<div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
+    </br>
+    </br>
+    <div style="text-align:center">
+        <video id="angry_vid" loop autoplay>
+<source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,eo_3.5,h_317,w_190/v1520373528/angrysoundvid.mp4" type='video/mp4'>
+</video>
+</br>
+</br>
+<span><input type="radio" name="questionvid3" id="angry" value="angry">Angry</input></span>
+        <span><input type="radio" name="questionvid3" id="scared" value="scared" >Scared</input></span>
+        <span><input type="radio" name="questionvid3" id="happy" value="happy">Happy</input></span>
+        <span><input type="radio" name="questionvid3" id="sad" value="sad" >Sad</input></span>
+</div>
+</div>
+</br>
+</br>
+<div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
+   </br>
+   </br>
+<div style="text-align:center">
+   <video id="scared_vid" loop autoplay>
+<source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,eo_3.5,h_317,w_190/v1520373569/scaredsoundvid.mp4" type='video/mp4'>
+    </video>
+</br>
+</br>
+<span><input type="radio" name="questionvid4" id="sad" value="sad">Sad</input></span>
+        <span><input type="radio" name="questionvid4" id="scared" value="scared" >Scared</input></span>
+        <span><input type="radio" name="questionvid4" id="angry" value="angry">Angry</input></span>
+        <span><input type="radio" name="questionvid4" id="happy" value="happy" >Happy</input></span>
+</div>
+</div>
+</br>
+</br>
+<div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
+    </br>
+    </br>
+    <div style="text-align:center">
+        <video id="surprised_vid" loop autoplay>
+<source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,h_317,w_190/v1520373537/surprisedsoundvid.mp4" type='video/mp4'>
+</video>
+</br>
+</br>
+<span><input type="radio" name="questionvid5" id="surprised" value="surprised">Surprised</input></span>
+        <span><input type="radio" name="questionvid5" id="sad" value="sad" >Sad</input></span>
+        <span><input type="radio" name="questionvid5" id="angry" value="angry">Angry</input></span>
+        <span><input type="radio" name="questionvid5" id="scared" value="scared" >Scared</input></span>
+</div>
+</div>
+</br>
+</br>
+<div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
+    </br>
+    </br>
+    <div style="text-align:center">
+        <video id="disgusted_vid" loop autoplay>
+<source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,h_317,w_190/v1520373532/disgustedsoundvid.mp4" type='video/mp4'></video>
+</br>
+</br>
+<span><input type="radio" name="questionvid6" id="scared" value="scared">Scared</input></span>
+        <span><input type="radio" name="questionvid6" id="happy" value="happy" >Happy</input></span>
+        <span><input type="radio" name="questionvid6" id="surprised" value="surprised">Surprised</input></span>
+        <span><input type="radio" name="questionvid6" id="disgusted" value="disgusted" >Disgusted</input></span>
+</div>
+</div>
+</br>
+</br>
+<div style="text-align:center"><input type = "submit" value = "send" id = "submitJson" onclick="returnJsonTop();"></div>
+</form>
+<script>
+var database= firebase.database();
+var ref = firebase.database().ref();
+var qv1 = $('input[name=questionvid1]:checked').val();
+var qv2 = $('input[name=questionvid2]:checked').val();
+var qv3 = $('input[name=questionvid3]:checked').val();
+var qv4 = $('input[name=questionvid4]:checked').val();
+var qv5 = $('input[name=questionvid5]:checked').val();
+var qv6 = $('input[name=questionvid6]:checked').val();
+var guess_emotions_vid_arr = [qv1, qv2, qv3, qv4, qv5, qv6];
+var myJsonString = JSON.stringify(guess_emotions_vid_arr);
+function returnJsonTop(){
+    if(!$('input[name=questionvid1]:checked').length) {
+        alert("Please answer question 1");
+    }
+    else if(!$('input[name=questionvid2]:checked').length) {
+        alert("Please answer question 2");
+    }
+    else if (!$('input[name=questionvid3]:checked').length) {
+        alert("Please answer question 3");
+    }
+    else if (!$('input[name=questionvid4]:checked').length) {
+        alert("Please answer question 4");
+    }
+    else if (!$('input[name=questionvid5]:checked').length) {
+        alert("Please answer question 5");
+    }
+    else if (!$('input[name=questionvid6]:checked').length) {
+        alert("Please answer question 6");
+    }
+else {
+        $.ajax({
+          method: 'POST',
+          url: '/django_project/json/',
+          dataType: 'json',
+          data: myJsonString
+        });
+        //writeUserData();
+        //window.location =
+    }
+}
+function writeUserData(userId, name) {
+    firebase.database().ref('users/' + userId).set({
+        username: name,
+        answers: myJsonString
+    });
+}
+</script>
+</body>
+</html>
