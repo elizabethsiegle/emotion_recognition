@@ -7,14 +7,25 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 from cloudinary.forms import cl_init_js_callbacks
-
+import ipdb
 cloudinary.config(
     cloud_name= "lizziepika",
     api_key= "174463134696341",
     api_secret= "IBCsfORYuuSUV-QoMcd6kuwnAqc"
 )
+config = {
+    "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+    "authDomain": "mythical-envoy-138318.firebaseapp.com",
+    "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+    "serviceAccount": "MyProject-5eabf65db970.json",
+    "storageBucket": "mythical-envoy-138318.appspot.com"
+}
+cred = credentials.Certificate('MyProject-5eabf65db970.json')
+firebase = pyrebase.initialize_app(config)
+db = firebase.database()
+auth = firebase.auth()
+user = auth.sign_in_with_email_and_password('lizzie.siegle@gmail.com', 'mightymawrtyr')
 # Create your views here.
-
 def Index(request):
     return render(request, 'index.html')
 
@@ -27,6 +38,30 @@ def Vid_index(request):
 def Guess_emotion_1(request):
     return render(request, 'static_images_guess_emotion.html')
 
+def Guess_emotion_1_results(request):
+    list_one_answers = [] 
+    one_answers = db.child('static_part_1').order_by_key().limit_to_first(1).get()
+    for k in one_answers.each():
+        list_one_answers.append(k.val()) 
+    #if list_one_answers[0] == 'happy':
+    #if list_one_answers[0] == 'happy':
+        #print("happy")
+        #access DOM and print success, do something
+    #elif list_one_answers[1] == 'sad':
+        #print("q2: sad")
+    #elif list_one_answers[2] == 'angry':
+        #print("q3: angry")
+    #elif list_one_answers[3] == 'scared':
+        #ipdb.set_trace()
+        #print("q4: scared")
+    #elif list_one_answers[4] == 'surprised':
+        #ipdb.set_trace()
+        #print("q5: surprised")
+    #elif list_one_answers[5] == 'disgusted':
+        #ipdb.set_trace()
+        #print("q6: disgusted")
+    return render(request, 'static_emotion_results.html', {'list_one_answers': list_one_answers})
+
 def What_they_say_1(request):
     return render(request, 'static_images_guess_thinking.html')
 
@@ -35,9 +70,7 @@ def Guess_suggest_1(request):
 
 def Guess_emotion_2(request):
     #cloudinary.CloudinaryVideo("happyvid.mp4").video(alt="happy vid", loop=True)
-    cloudinary.CloudinaryVideo("happyvid").video(width=300, height=200, crop = "pad", background = "blue", 
-  preload = "none", controls = True,
-  fallback_content = "Your browser does not support HTML5 video tags")
+    cloudinary.CloudinaryVideo("happyvid").video(width=300, height=200, crop = "pad", background = "blue", preload = "none", controls = True, fallback_content = "Your browser does not support HTML5 video tags")
     cloudinary.CloudinaryVideo("sadvid")
     cloudinary.CloudinaryVideo('surprisedvid')
     cloudinary.CloudinaryVideo('angryvid')
@@ -109,14 +142,7 @@ def returnjson(request):
 def save_form(request):
     return render(request, "static_images_guess_thinking.html")
 
-def save_static_1(request):
-    config = {
-        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
-        "authDomain": "mythical-envoy-138318.firebaseapp.com",
-        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
-        "serviceAccount": "MyProject-5eabf65db970.json",
-        "storageBucket": "mythical-envoy-138318.appspot.com"
-    } 
+def save_static_1(request):  
     data = {}
     if 'question1' in request.GET:
         data['q1'] = request.GET['question1']
@@ -130,14 +156,15 @@ def save_static_1(request):
         data['q5'] = request.GET['question5'] 
     if 'question6' in request.GET:
         data['q6'] = request.GET['question6'] 
-    cred = credentials.Certificate('MyProject-5eabf65db970.json')
-    firebase = pyrebase.initialize_app(config)
-    db = firebase.database()
-    db.child("answers").child("first")
-    db.child("answers").push(data)
+    #cred = credentials.Certificate('MyProject-5eabf65db970.json')
+    #firebase = pyrebase.initialize_app(config)
+    db.child('static_part_1').push(data) #user['idToken'])
+    #db.child("answers").child(data) #'first'
+    #db.child("answers").push(data)
     #return HttpResponse("OK from firebase config views.py")
     #return render(request, 'static_images_guess_thinking.html')
-    return What_they_say_1(request)
+    #return What_they_say_1(request)
+    return Guess_emotion_1_results(request)
 
 def save_static_2(request):
     config = {
