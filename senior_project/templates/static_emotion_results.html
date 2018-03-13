@@ -1,14 +1,18 @@
 <html>
   <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+</script>
+  <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
   </head>
   <body>
     <p id = 'answers'>
       <ul>
-        {% for answer in list_one_answers %}
-        <li>{{answer}}</li>
-      {% endfor %}
+        <li>{{list_one_answers}}</li>
       </ul>
     </p>
+    {{ chart.as_html }}
   </body>
 </html>
 

@@ -8,6 +8,11 @@ import cloudinary.uploader
 import cloudinary.api
 from cloudinary.forms import cl_init_js_callbacks
 import ipdb
+
+from graphos.sources.simple import SimpleDataSource
+from graphos.renderers.gchart import LineChart, PieChart, BarChart
+from graphos.renderers.yui import LineChart, PieChart, SplineChart, BarChart, AreaChart, AreaSplineChart, ColumnChart
+
 cloudinary.config(
     cloud_name= "lizziepika",
     api_key= "174463134696341",
@@ -23,8 +28,7 @@ config = {
 cred = credentials.Certificate('MyProject-5eabf65db970.json')
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
-auth = firebase.auth()
-user = auth.sign_in_with_email_and_password('lizzie.siegle@gmail.com', 'mightymawrtyr')
+#authorize??
 # Create your views here.
 def Index(request):
     return render(request, 'index.html')
@@ -43,24 +47,58 @@ def Guess_emotion_1_results(request):
     one_answers = db.child('static_part_1').order_by_key().limit_to_first(1).get()
     for k in one_answers.each():
         list_one_answers.append(k.val()) 
-    #if list_one_answers[0] == 'happy':
-    #if list_one_answers[0] == 'happy':
-        #print("happy")
+    answers_dict = {}
+    score = 0
+    if db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q1') == 'happy':   
+        score +=1
+        answers_dict['q1'] = 1
+    elif db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q1') != 'happy':
+        score +=0
+        answers_dict['q1'] = 0
         #access DOM and print success, do something
-    #elif list_one_answers[1] == 'sad':
-        #print("q2: sad")
-    #elif list_one_answers[2] == 'angry':
-        #print("q3: angry")
-    #elif list_one_answers[3] == 'scared':
-        #ipdb.set_trace()
-        #print("q4: scared")
-    #elif list_one_answers[4] == 'surprised':
-        #ipdb.set_trace()
-        #print("q5: surprised")
-    #elif list_one_answers[5] == 'disgusted':
-        #ipdb.set_trace()
-        #print("q6: disgusted")
-    return render(request, 'static_emotion_results.html', {'list_one_answers': list_one_answers})
+    if db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q2') == 'sad':
+        score +=1
+        answers_dict['q2'] = 1
+    elif db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q2') != 'sad':
+        score +=0
+        answers_dict['q2'] =0
+    if db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q3') == 'angry':
+        score +=1
+        answers_dict['q3'] = 1
+    elif db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q3') != 'angry':
+        score +=0
+        answers_dict['q3'] = 0
+    if db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q4') == 'scared':
+        score +=1
+        answers_dict['q4'] = 1
+    elif db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q4') != 'scared':
+        score +=0
+        answers_dict['q4'] = 0
+    if db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q5') == 'surprised':
+        score +=1
+        answers_dict['q5'] = 1
+    elif db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q5') != 'surprised':
+        score +=0
+        answers_dict['q5'] = 0
+    if db.child('static_part_1').order_by_key().limit_to_first(2).equal_to('q6') == 'disgusted':
+        score += 1
+        answers_dict['q6'] = 1
+    elif db.child('static_part_1').order_by_key().limit_to_first(2).equal_to('q6') == 'disgusted':
+        score +=0
+        answers_dict['q6'] = 0
+    data = [
+       ['question', 'answer', 'correct?'],
+        ['question 1', db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q1'), answers_dict['q1']],
+        ['question 2', db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q2'), answers_dict['q2']],
+        ['question 3', db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q3'), answers_dict['q3']],
+        ['question 4', db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q4'), answers_dict['q4']],
+        ['question 5', db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q5'), answers_dict['q5']],
+        #['question 6', db.child('static_part_1').order_by_key().limit_to_first(1).equal_to('q6'), answers_dict['q6']]
+    ]
+    data_source = SimpleDataSource(data=data)
+    chart = LineChart(data_source)
+    context = {'chart': chart}
+    return render(request, 'static_emotion_results.html', context) #{'list_one_answers': list_one_answers}) 
 
 def What_they_say_1(request):
     return render(request, 'static_images_guess_thinking.html')
