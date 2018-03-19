@@ -18,7 +18,6 @@ from senior_project import views
 from django.conf import settings
 from django.conf import settings
 from django.views.static import serve
-
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.Index, name='index'),
@@ -40,8 +39,11 @@ urlpatterns = [
     url(r'^save_gif_1', views.save_gif_1, name='save_gif_1'),
     url(r'^save_gif_2', views.save_gif_2, name='save_gif_2'),
     url(r'^save_gif_3', views.save_gif_3, name='save_gif_3'),
-    url(r'^save_vid_1', views.save_vid_1, name='save_vid_1'),
+    #url(r'^save_vid_1', views.save_vid_1, name='save_vid_1'),
     url(r'^save_vid_2', views.save_vid_2, name='save_vid_2'),
     url(r'^save_vid_3', views.save_vid_3, name='save_vid_3'),
+    #url(r'^static_1_results', views.Guess_emotion_1_results, name='guess_emotion_1_results'),
+    #url(r'^static_2_results', views.What_they_say_1_results, name='guess_what_they_say_1_results'),
+    #url(r'^static_3_results', views.Guess_suggest_1_results, name='guess_suggest_1_results'),
 ]
 

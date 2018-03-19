@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<head>
+{% load static %} 
+<script type="text/javascript" src="{% static "fusioncharts/fusioncharts.js" %}"></script>
+<script type="text/javascript" src="{% static "fusioncharts/themes/fusioncharts.theme.fint.js" %}"></script>
+</head>
+<body>
+    <div id="chartContainer">{{ output|safe }}</div>
+   <a href = "guess_emotion_2"><button class="btn btn-lg btn-block" type="button">Next</button></a>
+    </body>
+</html>

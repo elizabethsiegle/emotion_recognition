@@ -121,6 +121,7 @@ var q4 = $("input[name='questionsay4']:checked").val();
 var q5 = $("input[name='questionsay5']:checked").val();
 var q6 = $("input[name='questionsay6']:checked").val();
 var answers_static_arr = [q1, q2, q3, q4, q5, q6];
+var myJsonString = JSON.stringify(answers_static_arr);
 //check each radio button is clicked
 function returnJsonTop() {
     if(!$('input[name=questionsay1]:checked').length) {
@@ -142,7 +143,6 @@ function returnJsonTop() {
         alert("Please answer question6");
     }
     else {
-        var myJsonString = JSON.stringify(answers_static_arr);
         $.ajax({
             method: 'POST',
             url: '/django_project/json/',
@@ -150,9 +150,15 @@ function returnJsonTop() {
             data: myJsonString
         });
         //writeUserData();
-        window.location = "../gif_index";
+        //window.location = "../gif_index";
     }
 }
+//function writeUserData(userId, name) {
+  //  firebase.database().ref('users/' + userId).set({
+    //    username: name,
+      //  answers: myJsonString
+    //});
+//}
 </script>
 </body>
 </html>

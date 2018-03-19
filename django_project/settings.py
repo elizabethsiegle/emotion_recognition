@@ -19,6 +19,8 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = (
 BASE_DIR
 )
+GOOGLECHARTS_API = "1.1"
+GOOGLECHARTS_PACKAGES = ["corechart"]
 
 
 # Quick-start development settings - unsuitable for production
@@ -43,7 +45,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cloudinary',
-    'graphos',
+    'djangobower',
+    #'jchart',
+    #'chartjs',
+    'django_nvd3',
+    #'googlecharts',
     'senior_project'
 )
 
@@ -135,6 +141,21 @@ STATICFILES_DIRS = (
     '/home/django/django_project/django_project/static/',
 )
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'djangobower.finders.BowerFinder',
+]
+
 CLOUDINARY = {
     'max_length': 200,
 }
+
+BOWER_COMPONENTS_ROOT = '/PROJECT_ROOT/components/'
+BOWER_INSTALLED_APPS = ( 
+    'jquery', 
+    'underscore', 
+    'd3#3.3.6', 
+    'nvd3#1.1.12-beta', 
+)
+
