@@ -12,7 +12,6 @@ from collections import OrderedDict
 from graphos.sources.simple import SimpleDataSource
 from graphos.renderers.gchart import LineChart, PieChart, BarChart
 from graphos.renderers.yui import LineChart, PieChart, SplineChart, BarChart, AreaChart, AreaSplineChart, ColumnChart
-import safygiphy
 
 cloudinary.config(
     cloud_name= "lizziepika",
@@ -92,33 +91,30 @@ def Guess_emotion_1_results(request):
         answers_dict['q6'] = 0
     #ret_dict = OrderedDict(sorted(answers_dict.items()))
     #data = [
-        #['question', 'answer', 'correct?'],
-        #['question 1', one_answers['q1'], answers_dict['q1']],
-        #['question 2', one_answers['q2'], answers_dict['q2']],
+     #   ['question', 'answer', 'correct?'],
+      #  ['question 1', one_answers['q1'], answers_dict['q1']],
+       # ['question 2', one_answers['q2'], answers_dict['q2']],
         #['question 3', one_answers['q3'], answers_dict['q3']],
         #['question 4', one_answers['q4'], answers_dict['q4']],
         #['question 5', one_answers['q5'], answers_dict['q5']],
         #['question 6', one_answers['q6'], answers_dict['q6']]
     #]
+    data = [['score'], score]
     #remove 
-    #db.child('static_part_1').order_by_key().limit_to_first(1).remove()
-    #db.child('real_static_part_1').push(one_answers)
-    #data_source = SimpleDataSource(data=data)
-    #chart = LineChart(data_source) #PieChart
-    #context = {'chart': chart}
+    db.child('static_part_1').order_by_key().limit_to_first(1).remove()
+    db.child('real_static_part_1').push(one_answers)
+    data_source = SimpleDataSource(data=data)
+    chart = LineChart(data_source) #PieChart
+    context = {'chart': chart}
     if score < 2:
-        q = cloudinary.CloudinaryImage('facepalm_gif_ncaa')
         em = 'bad'
     elif score < 4:
-        q = cloudinary.CloudinaryImage('thumbsup_gif')
         em = 'okay'
     elif score < 7:
-        q = cloudinary.CloudinaryImage('ncaa_amazing_gif')
         em = 'good'
     else:
-        q = cloudinary.CloudinaryImage('michelle_thumbsup_gif')
         em = 'okay' 
-    return render(request, 'static_emotion_results.html', {'em':em}) #{'list_one_answers': one_answers})
+    return render(request, 'static_emotion_results.html', {'em':em, 'score': score}) #, context) 
 
 def What_they_say_1(request):
     return render(request, 'static_images_guess_thinking.html')
@@ -180,13 +176,21 @@ def What_they_say_1_results(request):
     data_source = SimpleDataSource(data=data)
     chart2 = LineChart(data_source) #PieChart
     context = {'chart2': chart2}
-    return render(request, 'static_guess_thinking_results.html',context)
+    if score < 2:
+        em = 'bad'
+    elif score < 4:
+        em = 'okay'
+    elif score < 7:
+        em = 'good'
+    else:
+        em = 'okay'
+    return render(request, 'static_guess_thinking_results.html', {'em':em, 'score': score})
 
 def Guess_suggest_1(request):
     return render(request, 'static_images_guess_suggest.html')
 
 def Guess_suggest_1_results(request):
-    answers = db.child('third_static').order_by_key().limit_to_first(1).get().val().values()[0]
+    answers = db.child('third_static').order_by_key().limit_to_first(1).get().val().values()[1]    
     answers_dict = {}
     score = 0
     if 'angry' == answers['q1']:
@@ -228,17 +232,68 @@ def Guess_suggest_1_results(request):
         answers_dict['q6'] = 0
     db.child('third_static').order_by_key().limit_to_first(1).remove()
     db.child('real_static_part_3').push(answers)
-    data3 = [
-       ['question', 'answer', 'correct?'],
-       ['question 1', answers['q1'], answers_dict['q1']],
-       ['question 2', answers['q2'], answers_dict['q2']],
-       ['question 3', answers['q3'], answers_dict['q3']],
-       ['question 4', answers['q4'], answers_dict['q4']],
-       ['question 5', answers['q5'], answers_dict['q5']],
-       ['question 6', answers['q6'], answers_dict['q6']]
-    ]
+    #data3 = [
+     #  ['question', 'answer', 'correct?'],
+     #  ['question 1', answers['q1'], answers_dict['q1']],
+     #  ['question 2', answers['q2'], answers_dict['q2']],
+     #  ['question 3', answers['q3'], answers_dict['q3']],
+     #  ['question 4', answers['q4'], answers_dict['q4']],
+     #  ['question 5', answers['q5'], answers_dict['q5']],
+     #  ['question 6', answers['q6'], answers_dict['q6']]
+    #]
     #remove 
-    return render(request, 'static_guess_suggest_results.html', {'output': column2d.render()}) #context)
+    if score < 2:
+        em = 'bad'
+    elif score < 4:
+        em = 'okay'
+    elif score < 7:
+        em = 'good'
+    else:
+        score = 4
+        em = 'okay'
+    #return HttpResponse("OK from firebase config views.py")
+    return render(request, 'static_guess_suggest_results.html', {'em':em, 'score': score})
+
+def Guess_emotion_2_results(request):
+    one_answers = db.child('first_gif').order_by_key().limit_to_first(1).get().val().values()[0]
+
+    answers_dict = {}
+    score = 0
+    if 'happy' == one_answers['qg1']:
+        score +=1
+        answers_dict['q1'] = 1
+    elif 'happy' != one_answers['qg1']:
+        score +=0
+        answers_dict['q1'] = 0
+        #access DOM and print success, do something
+    if 'sad' == one_answers['qg2']:
+        score +=1
+        answers_dict['q2'] = 1
+    elif 'sad' != one_answers['qg2']:
+        score +=0
+        answers_dict['q2'] =0
+    if 'disgusted' == one_answers['qg6']:
+        score += 1
+        answers_dict['q6'] = 1
+    elif 'disgusted' != one_answers['qg6']:
+        score +=0
+        answers_dict['q6'] = 0
+    data = [['score'], score]
+    #remove
+    db.child('static_part_1').order_by_key().limit_to_first(1).remove()
+    db.child('real_static_part_1').push(one_answers)
+    data_source = SimpleDataSource(data=data)
+    chart = LineChart(data_source) #PieChart
+    context = {'chart': chart}
+    if score < 2:
+        em = 'bad'
+    elif score < 4:
+        em = 'okay'
+    elif score < 7:
+        em = 'good'
+    else:
+        em = 'okay'
+    return render(request, 'gif_emotion_results.html', {'em':em, 'score': score}) #, context)
 
 def Guess_emotion_2(request):
     #cloudinary.CloudinaryVideo("happyvid.mp4").video(alt="happy vid", loop=True)
@@ -310,9 +365,6 @@ def returnjson(request):
         request_data = request.POST
         print("Raw data: " + request_data.body)
         return HttpResponse("OK")
-
-def save_form(request):
-    return render(request, "static_images_guess_thinking.html")
 
 def save_static_1(request):  
     data = {}
@@ -386,91 +438,6 @@ def save_static_3(request):
     #return HttpResponse("OK from firebase config views.py")
     return Guess_suggest_1_results(request)
 
-def save_vid_2(request):
-    config = {
-        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
-        "authDomain": "mythical-envoy-138318.firebaseapp.com",
-        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
-        "serviceAccount": "MyProject-5eabf65db970.json",
-        "storageBucket": "mythical-envoy-138318.appspot.com"
-    }
-    datavid2 = {}
-    if 'vidtheysay1' in request.GET:
-        datavid2['qvs1'] = request.GET['vidtheysay1']
-    if 'vidtheysay2' in request.GET:
-        datavid2['qvs2'] = request.GET['vidtheysay2']
-    if 'vidtheysay3' in request.GET:
-        datavid2['qvs3'] = request.GET['vidtheysay3']
-    if 'vidtheysay4' in request.GET:
-        datavid2['qvs4'] = request.GET['vidtheysay4']
-    if 'vidtheysay5' in request.GET:
-        datavid2['qvs5'] = request.GET['vidtheysay5']
-    if 'vidtheysay6' in request.GET:
-        datavid2['qvs6'] = request.GET['vidtheysay6']
-    cred = credentials.Certificate('MyProject-5eabf65db970.json')
-    firebase = pyrebase.initialize_app(config)
-    db = firebase.database()
-    db.child("second_sound_video").push(datavid2)
-    #return HttpResponse("OK from firebase config views.py")
-    return render(request, 'video_sound_guess_suggest.html')
-
-def save_vid_3(request):
-    config = {
-        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
-        "authDomain": "mythical-envoy-138318.firebaseapp.com",
-        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
-        "serviceAccount": "MyProject-5eabf65db970.json",
-        "storageBucket": "mythical-envoy-138318.appspot.com"
-    }
-    datavid3 = {}
-    if 'vidsuggest1' in request.GET:
-        datavid3['vs1'] = request.GET['vidsuggest1']
-    if 'vidsuggest2' in request.GET:
-        datavid3['vs2'] = request.GET['vidsuggest2']
-    if 'vidsuggest3' in request.GET:
-        datavid3['vs3'] = request.GET['vidsuggest3']
-    if 'vidsuggest4' in request.GET:
-        datavid3['vs4'] = request.GET['vidsuggest4']
-    if 'vidsuggest5' in request.GET:
-        datavid3['vs5'] = request.GET['vidsuggest5']
-    if 'vidsuggest6' in request.GET:
-        datavid3['vs6'] = request.GET['vidsuggest6']
-    cred = credentials.Certificate('MyProject-5eabf65db970.json')
-    firebase = pyrebase.initialize_app(config)
-    db = firebase.database()
-    db.child("answers").child("third_sound_video")
-    db.child("answers").push(datavid3)
-    #return HttpResponse("OK from firebase config views.py")
-    return render(request, 'final.html')
-
-def save_static_3(request):
-    config = {
-        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
-        "authDomain": "mythical-envoy-138318.firebaseapp.com",
-        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
-        "serviceAccount": "MyProject-5eabf65db970.json",
-        "storageBucket": "mythical-envoy-138318.appspot.com"
-    }
-    data3 = {}
-    if 'questionsay1' in request.GET:
-        data3['q1'] = request.GET['questionsay1']
-    if 'questionsay2' in request.GET:
-        data3['q2'] = request.GET['questionsay2']
-    if 'questionsay3' in request.GET:
-        data3['q3'] = request.GET['questionsay3']
-    if 'questionsay4' in request.GET:
-        data3['q4'] = request.GET['questionsay4']
-    if 'questionsay5' in request.GET:
-        data3['q5'] = request.GET['questionsay5']
-    if 'questionsay6' in request.GET:
-        data3['q6'] = request.GET['questionsay6']
-    cred = credentials.Certificate('MyProject-5eabf65db970.json')
-    firebase = pyrebase.initialize_app(config)
-    db = firebase.database()
-    db.child("third_static").push(data3)
-    #return HttpResponse("OK from firebase config views.py")
-    return render(request, 'static_guess_suggest_results.html')
-
 def save_gif_1(request):
     config = {
         "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
@@ -495,11 +462,11 @@ def save_gif_1(request):
     cred = credentials.Certificate('MyProject-5eabf65db970.json')
     firebase = pyrebase.initialize_app(config)
     db = firebase.database()
-    db.child("answers").child("first_gif")
-    db.child("answers").push(data_gif_1)
+    db.child("first_gif").push(data_gif_1)
     #return HttpResponse("OK from firebase config views.py")
-    return render(request, 'gif_guess_thinking.html')
-
+    #return render(request, 'gif_emotion_results.html')
+    return Guess_emotion_2_results(request)
+    
 def save_gif_2(request):
     config = {
         "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
@@ -557,3 +524,62 @@ def save_gif_3(request):
     db.child("answers").push(data_gif_3)
     #return HttpResponse("OK from firebase config views.py")
     return render(request, 'video_sound_index.html')
+
+def save_vid_2(request):
+    config = {
+        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+        "authDomain": "mythical-envoy-138318.firebaseapp.com",
+        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+        "serviceAccount": "MyProject-5eabf65db970.json",
+        "storageBucket": "mythical-envoy-138318.appspot.com"
+    }
+    datavid2 = {}
+    if 'vidtheysay1' in request.GET:
+        datavid2['qvs1'] = request.GET['vidtheysay1']
+    if 'vidtheysay2' in request.GET:
+        datavid2['qvs2'] = request.GET['vidtheysay2']
+    if 'vidtheysay3' in request.GET:
+        datavid2['qvs3'] = request.GET['vidtheysay3']
+    if 'vidtheysay4' in request.GET:
+        datavid2['qvs4'] = request.GET['vidtheysay4']
+    if 'vidtheysay5' in request.GET:
+        datavid2['qvs5'] = request.GET['vidtheysay5']
+    if 'vidtheysay6' in request.GET:
+        datavid2['qvs6'] = request.GET['vidtheysay6']
+    cred = credentials.Certificate('MyProject-5eabf65db970.json')
+    firebase = pyrebase.initialize_app(config)
+    db = firebase.database()
+    db.child("second_sound_video").push(datavid2)
+    #return HttpResponse("OK from firebase config views.py")
+    return render(request, 'video_sound_guess_suggest.html')
+
+def save_vid_3(request):
+    config = {
+        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+        "authDomain": "mythical-envoy-138318.firebaseapp.com",
+        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+        "serviceAccount": "MyProject-5eabf65db970.json",
+        "storageBucket": "mythical-envoy-138318.appspot.com"
+    }
+    datavid3 = {}
+    if 'vidsuggest1' in request.GET:
+        datavid3['vs1'] = request.GET['vidsuggest1']
+    if 'vidsuggest2' in request.GET:
+        datavid3['vs2'] = request.GET['vidsuggest2']
+    if 'vidsuggest3' in request.GET:
+        datavid3['vs3'] = request.GET['vidsuggest3']
+    if 'vidsuggest4' in request.GET:
+        datavid3['vs4'] = request.GET['vidsuggest4']
+    if 'vidsuggest5' in request.GET:
+        datavid3['vs5'] = request.GET['vidsuggest5']
+    if 'vidsuggest6' in request.GET:
+        datavid3['vs6'] = request.GET['vidsuggest6']
+    cred = credentials.Certificate('MyProject-5eabf65db970.json')
+    firebase = pyrebase.initialize_app(config)
+    db = firebase.database()
+    db.child("answers").child("third_sound_video")
+    db.child("answers").push(datavid3)
+    #return HttpResponse("OK from firebase config views.py")
+    return render(request, 'final.html')
+
+

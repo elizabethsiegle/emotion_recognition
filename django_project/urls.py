@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'guess_suggest_3', views.Guess_suggest_3, name='Guess_suggest_3'),
     url(r'^json/$', views.returnjson, name='returnjson'),
     url(r'^save_static_1', views.save_static_1, name='save_static_1'),
+    #url(r'^save_static_1', views.Guess_emotion_1_results, name = 'save_static_1'),
     url(r'^save_static_2', views.save_static_2, name='save_static_2'),
     url(r'^save_static_3', views.save_static_3, name='save_static_3'),
     url(r'^save_gif_1', views.save_gif_1, name='save_gif_1'),
