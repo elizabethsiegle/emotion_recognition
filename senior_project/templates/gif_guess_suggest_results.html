@@ -1,14 +1,5 @@
 <html>
   <head>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-    google.load("visualization", "1", {packages:["corechart"]});
-</script>
-    <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
     {% load cloudinary %}
    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 
@@ -18,7 +9,6 @@
 <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/1.0.0/eon.css" />
 </head>
   <body>
-    {{answers_dict}}
     <p style='text-align:center'>
     {% if em == 'bad' %}
     <img src = 'http://res.cloudinary.com/lizziepika/image/upload/v1521431294/facepalm_gif_ncaa.gif'/>
@@ -26,20 +16,20 @@
     <img src = 'http://res.cloudinary.com/lizziepika/image/upload/v1521431452/thumbsup_gif.gif'/>
     {% elif em == 'good' %}
     <img src = 'http://res.cloudinary.com/lizziepika/image/upload/v1521431616/ncaa_amazing_gif.gif'/>
-{% endif %}
+    {% endif %}
 </p>
 <p style = 'text-align:center'>
 Your score for that section was {{ score }} out of 6.
 </p>
 <div id="chart"></div>
 <script>
-  var pubnub = new PubNub({
+var pubnub = new PubNub({
     publishKey:   'pub-c-66cea3ee-3a34-4597-9ca5-e8c9d09be347', // replace with your own pub-key
     subscribeKey: 'sub-c-3f41da36-2b86-11e8-9322-6e836ba663ef' // replace with your own sub-key
   });
 setInterval(function(){
-    pubnub.publish({
-    channel: 'gif_1',
+  pubnub.publish({
+    channel: 'gif_3',
     message: {
       eon: {
         'score': {{score}}
@@ -51,7 +41,7 @@ setInterval(function(){
 
   eon.chart({
     pubnub: pubnub,
-    channels: ["gif_1"],
+    channels: ["gif_3"],
     generate: {
       bindto: '#chart',
       data: {
@@ -60,7 +50,6 @@ setInterval(function(){
     }
   });
 </script>
-{{ chart.as_html }}
-  <a href = "guess_thinking_2"><button class="btn btn-lg btn-block" type="button">Next</button></a>
+<a href = "vid_index"><button class="btn btn-lg btn-block" type="button">Next</button></a>
   </body>
 </html>
