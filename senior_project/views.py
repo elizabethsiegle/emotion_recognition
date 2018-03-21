@@ -42,7 +42,10 @@ def Gif_index(request):
     return render(request, 'gif_index.html')
 
 def Vid_index(request):
-    return render(request, 'vid_index.html')
+    return render(request, 'video_sound_index.html')
+
+def end_index(request):
+    return render(request, 'end_index.html')
 
 def Guess_emotion_1(request):
     return render(request, 'static_images_guess_emotion.html')
@@ -367,7 +370,7 @@ def Guess_suggest_2(request):
     return render(request, 'gif_guess_suggest.html')
 
 def Guess_suggest_2_results(request):
-    say_two_answers = db.child('second_gif').order_by_key().limit_to_first(1).get().val().values()[0]
+    say_two_answers = db.child('third_gif').order_by_key().limit_to_first(1).get().val().values()[0]
 
     answers_dict = {}
     score = 0
@@ -413,7 +416,7 @@ def Guess_suggest_2_results(request):
         answers_dict['q6'] = 0
     #remove
     db.child('third_gif').order_by_key().limit_to_first(1).remove()
-    db.child('real_gif_part_3').push(two_answers)
+    db.child('real_gif_part_3').push(say_two_answers)
     
     if score < 2:
         em = 'bad'
@@ -441,41 +444,41 @@ def Guess_emotion_3_results(request):
     vid_1_answers = db.child('first_sound_video').order_by_key().limit_to_first(1).get().val().values()[0]
     answers_dict = {}
     score = 0
-    if 'angry' == vid_1_answers['qv1']:
+    if 'happy' == vid_1_answers['qvs1']:
         score +=1
         answers_dict['q1'] = 1
-    elif 'angry' != vid_1_answers['qv1']:
+    elif 'happy' != vid_1_answers['qvs1']:
         score +=0
         answers_dict['q1'] = 0
         #access DOM and print success, do something
-    if 'surprised' == vid_1_answers['qv2']:
+    if 'sad' == vid_1_answers['qvs2']:
         score +=1
         answers_dict['q2'] = 1
-    elif 'surprised' != vid_1_answers['qv2']:
+    elif 'sad' != vid_1_answers['qvs2']:
         score +=0
         answers_dict['q2'] =0
-    if 'disgusted' == vid_1_answers['qv3']:
+    if 'angry' == vid_1_answers['qvs3']:
         score +=1
         answers_dict['q3'] = 1
-    elif 'disgusted' != vid_1_answers['qv3']:
+    elif 'angry' != vid_1_answers['qvs3']:
         score +=0
         answers_dict['q3'] = 0
-    if 'happy' == vid_1_answers['qv4']:
+    if 'scared' == vid_1_answers['qvs4']:
         score +=1
         answers_dict['q4'] = 1
-    elif 'happy' != vid_1_answers['qv4']:
+    elif 'scared' != vid_1_answers['qvs4']:
         score +=0
         answers_dict['q4'] = 0
-    if 'sad' == vid_1_answers['qv5']:
+    if 'surprised' == vid_1_answers['qvs5']:
         score +=1
         answers_dict['q5'] = 1
-    elif 'sad' != vid_1_answers['qv5']:
+    elif 'surprised' != vid_1_answers['qvs5']:
         score +=0
         answers_dict['q5'] = 0
-    if 'scared' == vid_1_answers['qv6']:
+    if 'disgusted' == vid_1_answers['qvs6']:
         score +=1
         answers_dict['q6'] = 1
-    elif 'scared' != vid_1_answers['qv6']:
+    elif 'disgusted' != vid_1_answers['qvs6']:
         score +=0
         answers_dict['q6'] = 0
     #remove
@@ -489,7 +492,7 @@ def Guess_emotion_3_results(request):
         em = 'good'
     else:
         em = 'okay'
-    return render(request, 'video_sound_guess_suggest_results.html', {'em':em, 'score': score})
+    return render(request, 'video_sound_emotion_results.html', {'em':em, 'score': score})
 
 def What_they_say_3(request):
     cloudinary.CloudinaryVideo("happysoundvid").video(width=300, height=200, crop = "pad", background = "blue",
@@ -620,8 +623,8 @@ def Guess_suggest_3_results(request):
         em = 'good'
     else:
         em = 'okay'
-    return render('video_sound_guess_suggest_results.html', {'em': em, 'score':score})
-
+    return render(request, 'video_sound_guess_suggest_results.html', {'em': em, 'score':score})
+    
 def returnjson(request):
     if request.is_ajax():
         request_data = request.POST
@@ -785,6 +788,35 @@ def save_gif_3(request):
     db.child("third_gif").push(data_gif_3)
     #return HttpResponse("OK from firebase config views.py")
     #return render(request, 'video_sound_index.html')
+    return Guess_suggest_2_results(request)
+
+def save_vid_1(request):
+    config = {
+        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+        "authDomain": "mythical-envoy-138318.firebaseapp.com",
+        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+        "serviceAccount": "MyProject-5eabf65db970.json",
+        "storageBucket": "mythical-envoy-138318.appspot.com"
+    }
+    datavid1 = {}
+    if 'questionvid1' in request.GET:
+        datavid1['qvs1'] = request.GET['questionvid1']
+    if 'questionvid2' in request.GET:
+        datavid1['qvs2'] = request.GET['questionvid2']
+    if 'questionvid3' in request.GET:
+        datavid1['qvs3'] = request.GET['questionvid3']
+    if 'questionvid4' in request.GET:
+        datavid1['qvs4'] = request.GET['questionvid4']
+    if 'questionvid5' in request.GET:
+        datavid1['qvs5'] = request.GET['questionvid5']
+    if 'questionvid6' in request.GET:
+        datavid1['qvs6'] = request.GET['questionvid6']
+    cred = credentials.Certificate('MyProject-5eabf65db970.json')
+    firebase = pyrebase.initialize_app(config)
+    db = firebase.database()
+    db.child("first_sound_video").push(datavid1)
+    #return HttpResponse("OK from firebase config views.py")
+    #return render(request, 'video_sound_guess_suggest.html')
     return Guess_emotion_3_results(request)
 
 def save_vid_2(request):
