@@ -36,6 +36,9 @@ db = firebase.database()
 # Create your views here.
 
 def Index(request):
+    return render(request, 'home.html')
+
+def Form(request):
     return render(request, 'index.html')
 
 def Gif_index(request):
@@ -877,3 +880,27 @@ def save_vid_3(request):
     #return render(request, 'final.html')
     return Guess_suggest_3_results(request)
 
+def save_form(request):
+    config = {
+        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+        "authDomain": "mythical-envoy-138318.firebaseapp.com",
+        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
+        "serviceAccount": "MyProject-5eabf65db970.json",
+        "storageBucket": "mythical-envoy-138318.appspot.com"
+    }
+    dataform = {}
+    if 'age_box' in request.GET:
+        dataform['f1'] = request.GET['age_box']
+    if 'gender_box' in request.GET:
+        dataform['f2'] = request.GET['gender_box']
+    if 'state_box' in request.GET:
+        dataform['f3'] = request.GET['state_box']
+    if 'job_box' in request.GET:
+        dataform['f4'] = request.GET['job_box']
+    if 'major_box' in request.GET:
+        dataform['f5'] = request.GET['major_box']
+    cred = credentials.Certificate('MyProject-5eabf65db970.json')
+    firebase = pyrebase.initialize_app(config)
+    db = firebase.database()
+    db.child("form").push(dataform)
+    return render(request, 'home.html')

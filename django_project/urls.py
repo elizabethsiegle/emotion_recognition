@@ -20,7 +20,8 @@ from django.conf import settings
 from django.views.static import serve
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', views.Index, name='index'),
+    url(r'^$', views.Form, name='form'),
+    url(r'^home', views.Index, name='index'),
     url(r'^gif', views.Gif_index, name='gif_index'),
     url(r'^video', views.Vid_index, name='video_sound_index'),
     url(r'^guess_emotion_1', views.Guess_emotion_1, name='Guess_emotion_1'),
@@ -43,6 +44,7 @@ urlpatterns = [
     url(r'^save_vid_2', views.save_vid_2, name='save_vid_2'),
     url(r'^save_vid_3', views.save_vid_3, name='save_vid_3'),
     url(r'^end_index', views.end_index, name='end_index'),
+    url(r'^save_form', views.save_form, name='save_form'),
     #url(r'^static_1_results', views.Guess_emotion_1_results, name='guess_emotion_1_results'),
     #url(r'^static_2_results', views.What_they_say_1_results, name='guess_what_they_say_1_results'),
     #url(r'^static_3_results', views.Guess_suggest_1_results, name='guess_suggest_1_results'),

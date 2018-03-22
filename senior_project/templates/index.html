@@ -13,15 +13,127 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-database.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
+    authDomain: "mythical-envoy-138318.firebaseapp.com",
+    databaseURL: "https://mythical-envoy-138318.firebaseio.com",
+    projectId: "mythical-envoy-138318",
+    storageBucket: "mythical-envoy-138318.appspot.com",
+    messagingSenderId: "780186137580"
+  };
+  firebase.initializeApp(config);
+  
+</script>
+<style>
+.container {
+    height: auto;
+    width:50%;   
+}
+.container input {
+    width: 50%;
+    clear: both;
+}
+
+.inputs_table  input[type="text"], input[type="number"] {
+    width: 250px;       
+}
+label  {
+    white-space: nowrap;
+}
+
+.text_box {
+}
+</style>
 </head>
 <body>
-  <div class = "text-center" margin-top="10%">
-        <p>This web application will test your knowledge of emotions through the usage of static images.
-    </p>
- <div class="text-center"><a href = "guess_emotion_1"><button class="btn btn-lg btn-block" type="button">Guess Which Emotion</button></a></div>
- <div class="text-center"><a href = "guess_thinking_1"><button class="btn btn-lg btn-block" type="button">What Might They Be Saying?</button></a></div>
- <div class="text-center"><a href = "guess_suggest_1"><button class="btn btn-lg btn-block " type="button">What Could I Say?</button></a></div>
+  <div class = "container" margin-top="10%">
+        <p>The following web applications will test your knowledge of emotions through the usage of static images, followed by gifs, and then finally through video clips with sound. First, however, we need to learn more about you. </p>
+  <form onsubmit = "return checktext()"action = "{% url 'save_form' %}" method="get">
+  <table class="inputs_table">
+    <tbody>
+    <tr>
+      <td>Age</td>
+      <td>
+        <input type = "number" id="age_box" name="age_box" placeholder = "age (numbers only)"/>
+      </td>
+    </tr>
+    <tr>
+        <td>Gender</td>
+        <td><input type="text" id="gender_box" name="gender_box" placeholder="non-binary"/>
+        </td>
+    </tr>
+    <tr>
+        <td>State</td>
+        <td>
+          <input type = "text" id ="state_box" name="state_box" placeholder = "Pennsylvania"/>
+        </td>
+    </tr>
+    <tr>
+        <td>Job</td>
+        <td>
+          <input type = "text" id = "job_box" name="job_box" placeholder = "engineer"/>
+        </td>
+    </tr>
+    <tr>
+      <td>Major</td>
+        <td>
+          <input type = "text" id = "major_box" name="major_box" placeholder = "English"/></label>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </div>
+<div class="text-center" style="margin-top:5%"><input type="submit" value="next"id="submitJson"></div> <!--<a href = "/home"/> -->
+</form>
+<script>
+var database= firebase.database();
+var ref = firebase.database().ref();
+var f1 = document.getElementById('age_box').innerText;
+var f2 = document.getElementById('gender_box').innerText;
+var f3 = document.getElementById('state_box').innerText;
+var f4 = document.getElementById('job_box').innerText;
+var f5 = document.getElementById('major_box').innerText;
+var form_arr = [f1, f2, f3, f4, f5];
+var myJsonString = JSON.stringify(form_arr);
+//check each radio button is clicked
 
+function checktext() {
+    var ret = true;
+    if((document.getElementById('age_box').value).length==0) {
+        alert('enter your age!');
+        ret = false;  
+    }
+    else if((document.getElementById('gender_box').value).length==0) {
+        alert('enter your gender!');
+        ret = false;
+    }
+    else if((document.getElementById('state_box').value).length==0) {
+        alert('enter your home state!');
+        ret = false;
+    }
+    else if((document.getElementById('job_box').value).length==0) {
+        alert('enter your job!');
+        ret = false;
+    }
+    else if((document.getElementById('major_box').value).length==0) {
+        alert('enter your major!'); 
+        ret = false;
+    }
+    if (ret) {
+        $.ajax({
+            method: 'POST',
+            url: '/django_project/json/',
+            dataType: 'json',
+            data: myJsonString
+        });
+        //writeUserData();
+        window.location = "../home";
+    }
+}
+</script>
 </body>
 </html>
