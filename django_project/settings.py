@@ -69,7 +69,7 @@ ROOT_URLCONF = 'django_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -158,4 +158,5 @@ BOWER_INSTALLED_APPS = (
     'd3#3.3.6', 
     'nvd3#1.1.12-beta', 
 )
-
+LOGIN_REDIRECT_URL ='/'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

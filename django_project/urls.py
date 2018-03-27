@@ -12,10 +12,15 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+from django.contrib.auth.models import User, Permission
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth import authenticate, login, logout
+from django.conf import settings
+from django.shortcuts import redirect, render
+#from django.contrib.auth.decorators import login_required
 from django.conf.urls import include, url
 from django.contrib import admin
 from senior_project import views
-from django.conf import settings
 from django.conf import settings
 from django.views.static import serve
 urlpatterns = [
@@ -45,8 +50,12 @@ urlpatterns = [
     url(r'^save_vid_3', views.save_vid_3, name='save_vid_3'),
     url(r'^end_index', views.end_index, name='end_index'),
     url(r'^save_form', views.save_form, name='save_form'),
+    #path('accounts/', include('django.contrib.auth.urls')),
     #url(r'^static_1_results', views.Guess_emotion_1_results, name='guess_emotion_1_results'),
     #url(r'^static_2_results', views.What_they_say_1_results, name='guess_what_they_say_1_results'),
     #url(r'^static_3_results', views.Guess_suggest_1_results, name='guess_suggest_1_results'),
+]
+urlpatterns += [
+    url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
 

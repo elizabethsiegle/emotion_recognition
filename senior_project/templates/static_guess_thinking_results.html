@@ -1,4 +1,6 @@
-<html>
+{% extends "base_generic.html" %}
+
+{% block content %}
   <head>
     {% load cloudinary %}
    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -52,4 +54,4 @@ setInterval(function(){
 </script>
 <a href = "guess_suggest_1"><button class="btn btn-lg btn-block" type="button">Next</button></a>
   </body>
-</html>
+{% endblock %}

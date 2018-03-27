@@ -1,4 +1,6 @@
-<html>
+{% extends "base_generic.html" %}
+
+{% block content %}
   <head>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -62,4 +64,4 @@ setInterval(function(){
 {{ chart.as_html }}
   <a href = "what_they_say_3"><button class="btn btn-lg btn-block" type="button">Next</button></a>
   </body>
-</html>
+{% endblock %}

@@ -3,6 +3,7 @@ import firebase_admin
 import pyrebase
 from firebase_admin import db, credentials
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -34,25 +35,31 @@ db = firebase.database()
 #auth = firebase.auth()
 #user = auth.sign_in_with_email_and_password('lizzie.siegle@gmail.com', 'mightymawrtyr')
 # Create your views here.
-
+@login_required
 def Index(request):
     return render(request, 'home.html')
 
+@login_required
 def Form(request):
     return render(request, 'index.html')
 
+@login_required
 def Gif_index(request):
     return render(request, 'gif_index.html')
 
+@login_required
 def Vid_index(request):
     return render(request, 'video_sound_index.html')
 
+@login_required
 def end_index(request):
     return render(request, 'end_index.html')
 
+@login_required
 def Guess_emotion_1(request):
     return render(request, 'static_images_guess_emotion.html')
 
+@login_required
 def Guess_emotion_1_results(request):
     one_answers = db.child('static_part_1').order_by_key().limit_to_first(1).get().val().values()[0] 
     
@@ -109,9 +116,11 @@ def Guess_emotion_1_results(request):
         em = 'okay' 
     return render(request, 'static_emotion_results.html', {'em':em, 'score': score}) #, context) 
 
+@login_required
 def What_they_say_1(request):
     return render(request, 'static_images_guess_thinking.html')
 
+@login_required
 def What_they_say_1_results(request):
     two_answers = db.child('second_static').order_by_key().limit_to_first(1).get().val().values()[0]
 
@@ -169,9 +178,11 @@ def What_they_say_1_results(request):
         em = 'okay'
     return render(request, 'static_guess_thinking_results.html', {'em':em, 'score': score})
 
+@login_required
 def Guess_suggest_1(request):
     return render(request, 'static_images_guess_suggest.html')
 
+@login_required
 def Guess_suggest_1_results(request):
     answers = db.child('third_static').order_by_key().limit_to_first(1).get().val().values()[0]
     answers_dict = {}
@@ -227,6 +238,7 @@ def Guess_suggest_1_results(request):
         em = 'okay'
     return render(request, 'static_guess_suggest_results.html', {'em':em, 'score': score})
 
+@login_required
 def Guess_emotion_2_results(request):
     two_answers = db.child('first_gif').order_by_key().limit_to_first(1).get().val().values()[0]
 
@@ -282,6 +294,7 @@ def Guess_emotion_2_results(request):
         em = 'okay'
     return render(request, 'gif_emotion_results.html', {'em':em, 'score': score, 'answers_dict': answers_dict}) #, context)
 
+@login_required
 def Guess_emotion_2(request):
     #cloudinary.CloudinaryVideo("happyvid.mp4").video(alt="happy vid", loop=True)
     cloudinary.CloudinaryVideo("happyvid").video(width=300, height=200, crop = "pad", background = "blue", preload = "none", controls = True, fallback_content = "Your browser does not support HTML5 video tags")
@@ -292,6 +305,7 @@ def Guess_emotion_2(request):
     cloudinary.CloudinaryVideo('scaredvid')
     return render(request, 'gif_guess_emotion.html')
 
+@login_required
 def What_they_say_2(request):
     cloudinary.CloudinaryVideo("happyvid").video(width=300, height=200, crop = "pad", background = "blue",
   preload = "none", controls = True,
@@ -303,6 +317,7 @@ def What_they_say_2(request):
     cloudinary.CloudinaryVideo('scaredvid')
     return render(request, 'gif_guess_thinking.html')
 
+@login_required
 def What_they_say_2_results(request):
     say_two_answers = db.child('second_gif').order_by_key().limit_to_first(1).get().val().values()[0]
 
@@ -361,6 +376,7 @@ def What_they_say_2_results(request):
         em = 'okay'
     return render(request, 'gif_guess_thinking_results.html', {'em':em, 'score': score})
 
+@login_required
 def Guess_suggest_2(request):
     cloudinary.CloudinaryVideo("happyvid").video(width=300, height=200, crop = "pad", background = "blue",
   preload = "none", controls = True,
@@ -372,6 +388,7 @@ def Guess_suggest_2(request):
     cloudinary.CloudinaryVideo('scaredvid')
     return render(request, 'gif_guess_suggest.html')
 
+@login_required
 def Guess_suggest_2_results(request):
     say_two_answers = db.child('third_gif').order_by_key().limit_to_first(1).get().val().values()[0]
 
@@ -431,7 +448,7 @@ def Guess_suggest_2_results(request):
         em = 'okay'
     return render(request, 'gif_guess_suggest_results.html', {'em':em, 'score': score})
    
-
+@login_required
 def Guess_emotion_3(request):
     cloudinary.CloudinaryVideo("happysoundvid").video(width=300, height=200, crop = "pad", background = "blue",
   preload = "none", controls = True,
@@ -443,6 +460,7 @@ def Guess_emotion_3(request):
     cloudinary.CloudinaryVideo('scaredsoundvid')
     return render(request, 'video_sound_guess_emotion.html')
 
+@login_required
 def Guess_emotion_3_results(request):
     vid_1_answers = db.child('first_sound_video').order_by_key().limit_to_first(1).get().val().values()[0]
     answers_dict = {}
@@ -497,6 +515,7 @@ def Guess_emotion_3_results(request):
         em = 'okay'
     return render(request, 'video_sound_emotion_results.html', {'em':em, 'score': score})
 
+@login_required
 def What_they_say_3(request):
     cloudinary.CloudinaryVideo("happysoundvid").video(width=300, height=200, crop = "pad", background = "blue",
   preload = "none", controls = True,
@@ -508,6 +527,7 @@ def What_they_say_3(request):
     cloudinary.CloudinaryVideo('scaredsoundvid')
     return render(request, 'video_sound_guess_thinking.html')
 
+@login_required
 def What_they_say_3_results(request):
     vid_2_answers = db.child('second_sound_video').order_by_key().limit_to_first(1).get().val().values()[0]
 
@@ -516,14 +536,14 @@ def What_they_say_3_results(request):
     if 'angry' == vid_2_answers['qvs1']:
         score +=1
         answers_dict['q1'] = 1
-    elif 'angry' != vid_2_answers['qvs1']:
+    elif 'angry' != vid_2_answers['qvs1'] or 'qvs1' not in vid_2_answers:
         score +=0
         answers_dict['q1'] = 0
         #access DOM and print success, do something
     if 'surprised' == vid_2_answers['qvs2']:
         score +=1
         answers_dict['q2'] = 1
-    elif 'surprised' != vid_2_answers['qvs2']:
+    elif 'surprised' != vid_2_answers['qvs2'] or 'qvs2' not in vid_2_answers:
         score +=0
         answers_dict['q2'] =0
     if 'disgusted' == vid_2_answers['qvs3']:
@@ -563,6 +583,7 @@ def What_they_say_3_results(request):
         em = 'okay'
     return render(request, 'video_sound_guess_thinking_results.html', {'em':em, 'score': score})
 
+@login_required
 def Guess_suggest_3(request):
     cloudinary.CloudinaryVideo("happysoundvid").video(width=300, height=200, crop = "pad", background = "blue",
   preload = "none", controls = True,
@@ -574,6 +595,7 @@ def Guess_suggest_3(request):
     cloudinary.CloudinaryVideo('scaredsoundvid')
     return render(request, 'video_sound_guess_suggest.html')
 
+@login_required
 def Guess_suggest_3_results(request):
     vid_3_answers = db.child('third_sound_video').order_by_key().limit_to_first(1).get().val().values()[0]
 
@@ -634,6 +656,7 @@ def returnjson(request):
         print("Raw data: " + request_data.body)
         return HttpResponse("OK")
 
+@login_required
 def save_static_1(request):  
     data = {}
     if 'question1' in request.GET:
@@ -651,6 +674,7 @@ def save_static_1(request):
     db.child('static_part_1').push(data) 
     return Guess_emotion_1_results(request)
 
+@login_required
 def save_static_2(request):
     config = {
         "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
@@ -678,6 +702,7 @@ def save_static_2(request):
     db.child("second_static").push(data2)
     return What_they_say_1_results(request)
 
+@login_required
 def save_static_3(request):
     config = {
         "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
@@ -706,6 +731,7 @@ def save_static_3(request):
     #return HttpResponse("OK from firebase config views.py")
     return Guess_suggest_1_results(request)
 
+@login_required
 def save_gif_1(request):
     config = {
         "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
@@ -734,7 +760,8 @@ def save_gif_1(request):
     #return HttpResponse("OK from firebase config views.py")
     #return render(request, 'gif_emotion_results.html')
     return Guess_emotion_2_results(request)
-    
+
+@login_required
 def save_gif_2(request):
     config = {
         "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
@@ -764,6 +791,7 @@ def save_gif_2(request):
     #return render(request, 'gif_guess_suggest.html')
     return What_they_say_2_results(request)
 
+@login_required
 def save_gif_3(request):
     config = {
         "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
@@ -793,6 +821,7 @@ def save_gif_3(request):
     #return render(request, 'video_sound_index.html')
     return Guess_suggest_2_results(request)
 
+@login_required
 def save_vid_1(request):
     config = {
         "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
@@ -822,6 +851,7 @@ def save_vid_1(request):
     #return render(request, 'video_sound_guess_suggest.html')
     return Guess_emotion_3_results(request)
 
+@login_required
 def save_vid_2(request):
     config = {
         "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
@@ -850,7 +880,8 @@ def save_vid_2(request):
     #return HttpResponse("OK from firebase config views.py")
     #return render(request, 'video_sound_guess_suggest.html')
     return What_they_say_3_results(request)
-    
+
+@login_required    
 def save_vid_3(request):
     config = {
         "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
@@ -880,6 +911,7 @@ def save_vid_3(request):
     #return render(request, 'final.html')
     return Guess_suggest_3_results(request)
 
+@login_required
 def save_form(request):
     config = {
         "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
