@@ -14,6 +14,11 @@ from graphos.sources.simple import SimpleDataSource
 from graphos.renderers.gchart import LineChart, PieChart, BarChart
 from graphos.renderers.yui import LineChart, PieChart, SplineChart, BarChart, AreaChart, AreaSplineChart, ColumnChart
 
+from django.http import HttpResponseRedirect
+from .forms import UserForm
+from django import forms
+from django.core.exceptions import ValidationError
+
 cloudinary.config(
     cloud_name= "lizziepika",
     api_key= "174463134696341",
@@ -35,13 +40,28 @@ db = firebase.database()
 #auth = firebase.auth()
 #user = auth.sign_in_with_email_and_password('lizzie.siegle@gmail.com', 'mightymawrtyr')
 # Create your views here.
+#class infoform(forms.Form):
+
 @login_required
 def Index(request):
     return render(request, 'home.html')
 
 @login_required
 def Form(request):
-    return render(request, 'index.html')
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            #user = form.save(commit=False)
+            #user.age = request.age
+            #user.gender = request.gender
+            #user.state = request.state
+            #user.job = request.job
+            #user.major = request.major
+            #user.save()
+            return Index(request)
+    else:
+        form = UserForm()
+    return render(request, 'index.html', {'form':form})
 
 @login_required
 def Gif_index(request):
@@ -936,3 +956,5 @@ def save_form(request):
     db = firebase.database()
     db.child("form").push(dataform)
     return render(request, 'home.html')
+
+

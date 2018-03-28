@@ -17,8 +17,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
 from django.shortcuts import redirect, render
-#from django.contrib.auth.decorators import login_required
-from django.conf.urls import include, url
+from django.contrib.auth.decorators import login_required
+from django.conf.urls import * #include, url
 from django.contrib import admin
 from senior_project import views
 from django.conf import settings
