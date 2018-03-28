@@ -15,6 +15,7 @@ Including another URLconf
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import views
 from django.conf import settings
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
@@ -24,7 +25,12 @@ from senior_project import views
 from django.conf import settings
 from django.views.static import serve
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)), #admin.site.urls,
+    #url(r'^login/$', views.login, name='login'),
+    #url(r'^logout/$', views.logout, name='logout'),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    #path('accounts/', include('django.contrib.auth.urls')),
+    url(r'^form/$', views.Form),
     url(r'^$', views.Form, name='form'),
     url(r'^home', views.Index, name='index'),
     url(r'^gif', views.Gif_index, name='gif_index'),

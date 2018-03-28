@@ -158,5 +158,5 @@ BOWER_INSTALLED_APPS = (
     'd3#3.3.6', 
     'nvd3#1.1.12-beta', 
 )
-LOGIN_REDIRECT_URL ='/'
+LOGIN_REDIRECT_URL ='home' #'/' or '/accounts/profile/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

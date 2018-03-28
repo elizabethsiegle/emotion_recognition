@@ -42,11 +42,9 @@ db = firebase.database()
 # Create your views here.
 #class infoform(forms.Form):
 
-@login_required
 def Index(request):
     return render(request, 'home.html')
 
-@login_required
 def Form(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
