@@ -1,6 +1,6 @@
 {% extends "base_generic.html" %}
 {% block content %}
-
+<body style="background-color:rgb(255, 204, 204);text-align:center;">
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
@@ -10,7 +10,7 @@
     <p>Your account doesn't have access to this page. To proceed,
     please login with an account that has access.</p>
     {% else %}
-    <p>Please login to see this page.</p>
+    <p style="margin-top:10%;">Please login to see this page.</p>
     {% endif %}
 {% endif %}
 
@@ -36,3 +36,4 @@
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 
 {% endblock %}
+</body>

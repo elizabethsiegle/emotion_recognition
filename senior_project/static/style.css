@@ -5,3 +5,11 @@
   -webkit-transform:  rotate(90deg);
   -o-transform:       rotate(90deg);
 }
+
+body {
+    background-color: rgb(255, 0, 0);
+}
+
+h1 a {
+    color: #FCA205;
+}

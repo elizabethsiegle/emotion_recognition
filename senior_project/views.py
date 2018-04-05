@@ -37,9 +37,7 @@ root = db.reference()
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 #authorize??
-#auth = firebase.auth()
-#user = auth.sign_in_with_email_and_password('lizzie.siegle@gmail.com', 'mightymawrtyr')
-# Create your views here.
+#Create your views here.
 #class infoform(forms.Form):
 
 def Index(request):
@@ -49,6 +47,17 @@ def Form(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
+            age = request.age
+            #age = request.POST.get('age')
+            gender = request.gender
+            state = request.state
+            job = request.job
+            major = request.major
+            user_form_answers = [age, gender, state, job, major]
+            cred = credentials.Certificate('MyProject-5eabf65db970.json')
+            firebase = pyrebase.initialize_app(config)
+            db = firebase.database()
+            db.child('user_form').push(user_form_answers)
             #user = form.save(commit=False)
             #user.age = request.age
             #user.gender = request.gender
@@ -929,7 +938,7 @@ def save_vid_3(request):
     #return render(request, 'final.html')
     return Guess_suggest_3_results(request)
 
-@login_required
+# @login_required
 def save_form(request):
     config = {
         "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",

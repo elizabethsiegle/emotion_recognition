@@ -36,16 +36,14 @@
 </style>
 </head>
 <body>
-  <div class = "container" margin-top="10%">
-        <p>The following web applications will test your knowledge of emotions through the usage of static images, followed by gifs, and then finally through video clips with sound. First, however, we need to learn more about you. </p>
-  <form onsubmit = "return checktext()" method="post">
+  <div class = "container">
+        <p style="margin-top:10%">The following web applications will test your knowledge of emotions through the usage of static images, followed by gifs, and then finally through video clips with sound. First, however, we need to learn more about you. </p>
+<form method="post" action="" class = "post-form">
     {% csrf_token %}
     {{form.as_p}}
-<div class="text-center" style="margin-top:5%"><input type="submit" value="next"id="submitJson"></div> <!--<a href = "/home"/> -->
+<button type="submit" class = "save btn btn-default">Save</button>
 </form>
-{% if form.is_valid %}
-{% url 'save_form' %}
-{% endif %}
+{% endblock %}
 <script>
 var database= firebase.database();
 var ref = firebase.database().ref();
@@ -65,11 +63,9 @@ var myJsonString = JSON.stringify(form_arr);
     data: myJsonString
 });
 {% endif %}
-
         //writeUserData();
         //window.location = "../home";
     }
 }
 </script>
 </body>
-{% endblock %}
