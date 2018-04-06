@@ -47,17 +47,16 @@ def Form(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            age = request.age
-            #age = request.POST.get('age')
-            gender = request.gender
-            state = request.state
-            job = request.job
-            major = request.major
+            age = request.POST.get('age')
+            gender = request.POST.get('gender')
+            state = request.POST.get('state')
+            job = request.POST.get('job')
+            major=request.POST.get('major')
             user_form_answers = [age, gender, state, job, major]
             cred = credentials.Certificate('MyProject-5eabf65db970.json')
             firebase = pyrebase.initialize_app(config)
             db = firebase.database()
-            db.child('user_form').push(user_form_answers)
+            db.child('form').push(user_form_answers)
             #user = form.save(commit=False)
             #user.age = request.age
             #user.gender = request.gender
