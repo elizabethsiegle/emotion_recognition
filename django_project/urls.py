@@ -32,6 +32,7 @@ urlpatterns = [
     #path('accounts/', include('django.contrib.auth.urls')),
     url(r'^form/$', views.Form),
     url(r'^$', views.Form, name='form'),
+    #url(r'^video', views.twilio_video, name='twilio_video'),
     url(r'^home', views.Index, name='index'),
     url(r'^gif', views.Gif_index, name='gif_index'),
     url(r'^video', views.Vid_index, name='video_sound_index'),

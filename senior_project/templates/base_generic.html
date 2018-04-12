@@ -28,7 +28,8 @@
         <li><a href="{% url 'index' %}">Home</a></li>
          <li>User: {{ user.get_username }}</li>
          <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
-     {% else %}
+         <!--<li><a href = ''>Video Chat</a></li> -->
+      {% else %}
          <li><a href = "{% url 'form' %}">Home</a></li> 
          <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
      {% endif %} 

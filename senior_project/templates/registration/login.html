@@ -34,6 +34,6 @@
 
 {# Assumes you setup the password_reset view in your URLconf #}
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-
+<p> If you can't login (password/username combo doesn't work with this Django form sometimes for some users), go to this <a href = "{% url 'index' %}">page</a> instead.</p>
 {% endblock %}
 </body>
