@@ -210,48 +210,48 @@ def Guess_suggest_1(request):
 
 #@login_required
 def Guess_suggest_1_results(request):
-    answers = db.child('third_static').order_by_key().limit_to_first(1).get().val().values()[0]
+    three_answers = db.child('third_static').order_by_key().limit_to_first(1).get().val().values()[0]
     answers_dict = {}
     score = 0
-    if 'angry' == answers['q1']:
+    if 'angry' == three_answers['q1']:
         score +=1
         answers_dict['q1'] = 1
-    elif 'angry' != answers['q1']:
+    elif 'angry' != three_answers['q1']:
         score +=0
         answers_dict['q1'] = 0
         #access DOM and print success, do something
-    if 'happy' == answers['q2']:
+    if 'happy' == three_answers['q2']:
         score +=1
         answers_dict['q2'] = 1
-    elif 'happy' != answers['q2']:
+    elif 'happy' != three_answers['q2']:
         score +=0
         answers_dict['q2'] =0
-    if 'sad' == answers['q3']:
+    if 'sad' == three_answers['q3']:
         score +=1
         answers_dict['q3'] = 1
-    elif 'sad' != answers['q3']:
+    elif 'sad' != three_answers['q3']:
         score +=0
         answers_dict['q3'] = 0
-    if 'disgusted' == answers['q4']:
+    if 'disgusted' == three_answers['q4']:
         score +=1
         answers_dict['q4'] = 1
-    elif 'disgusted' == answers['q4']:
+    elif 'disgusted' == three_answers['q4']:
         score +=0
         answers_dict['q4'] = 0
-    if 'surprised' == answers['q5']:
+    if 'surprised' == three_answers['q5']:
         score +=1
         answers_dict['q5'] = 1
-    elif 'surprised' != answers['q5']:
+    elif 'surprised' != three_answers['q5']:
         score +=0
         answers_dict['q5'] = 0
-    if 'scared' == answers['q6']:
+    if 'scared' == three_answers['q6']:
         score +=1
         answers_dict['q6'] = 1
-    elif 'scared' != answers['q6']:
+    elif 'scared' != three_answers['q6']:
         score +=0
         answers_dict['q6'] = 0
     db.child('third_static').order_by_key().limit_to_first(1).remove()
-    db.child('real_static_part_3').push(answers) 
+    db.child('real_static_part_3').push(three_answers) 
     #remove 
     if score < 2:
         em = 'bad'
