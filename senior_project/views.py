@@ -142,11 +142,11 @@ def Guess_emotion_1_results(request):
         em = 'okay' 
     return render(request, 'static_emotion_results.html', {'em':em, 'score': score}) #, context) 
 
-#@login_required
+@login_required
 def What_they_say_1(request):
     return render(request, 'static_images_guess_thinking.html')
 
-#@login_required
+@login_required
 def What_they_say_1_results(request):
     two_answers = db.child('second_static').order_by_key().limit_to_first(1).get().val().values()[0]
 
@@ -202,9 +202,9 @@ def What_they_say_1_results(request):
         em = 'good'
     else:
         em = 'okay'
-    return render(request, 'static_guess_thinking_results.html', {'em':em, 'score': score})
-
-#@login_required
+    #context = {'request': request}
+    return render_to_response(request, 'static_guess_thinking_results.html', {'em':em, 'score': score}) #, context)
+@login_required
 def Guess_suggest_1(request):
     return render(request, 'static_images_guess_suggest.html')
 
@@ -332,7 +332,7 @@ def Guess_emotion_2(request):
     return render(request, 'gif_guess_emotion.html')
 
 #@login_required
-def What_they_say_2(request):
+def What_they_say_2(request): #what_they_say_2
     cloudinary.CloudinaryVideo("happyvid").video(width=300, height=200, crop = "pad", background = "blue",
   preload = "none", controls = True,
   fallback_content = "Your browser does not support HTML5 video tags")
@@ -427,12 +427,12 @@ def Guess_suggest_2_results(request):
         score +=0
         answers_dict['q1'] = 0
         #access DOM and print success, do something
-    if 'surprised' == say_two_answers['qg2']:
-        score +=1
-        answers_dict['q2'] = 1
-    elif 'surprised' != say_two_answers['qg2']:
+    if 'surprised' != say_two_answers['qg2']:
         score +=0
-        answers_dict['q2'] =0
+        answers_dict['q2'] = 0
+    elif 'surprised' == say_two_answers['qg2']:
+        score +=1
+        answers_dict['q2'] =1
     if 'disgusted' == say_two_answers['qg3']:
         score +=1
         answers_dict['q3'] = 1
