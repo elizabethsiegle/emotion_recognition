@@ -4,6 +4,9 @@ import pyrebase
 from firebase_admin import db, credentials
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -44,26 +47,33 @@ def Index(request):
     return render(request, 'home.html', {})
 
 def Form(request):
+#def signup(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = UserForm(request.POST or None)
         if form.is_valid():
-            age = request.POST.get('age')
-            gender = request.POST.get('gender')
-            state = request.POST.get('state')
-            job = request.POST.get('job')
-            major=request.POST.get('major')
+            #form.save()
+            username = form.cleaned_data.get('username')
+            age = form.cleaned_data.get('age')
+            password = form.cleaned_data.get('password')
+            gender = form.cleaned_data.get('gender')
+            state = form.cleaned_data.get('state')
+            job = form.cleaned_data.get('job')
+            major= form.cleaned_data.get('major')
             user_form_answers = [age, gender, state, job, major]
             cred = credentials.Certificate('MyProject-5eabf65db970.json')
             firebase = pyrebase.initialize_app(config)
             db = firebase.database()
             db.child('form').push(user_form_answers)
-            user = form.save(commit=False)
+            user = form.save() #commit = false
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            #user = authenticate(username=username, password=password)
+            login(request, user)
             #user.age = request.age
             #user.gender = request.gender
             #user.state = request.state
             #user.job = request.job
             #user.major = request.major
-            user.save()
+            #user.save()
             return Index(request)
     else:
         form = UserForm()
@@ -147,49 +157,53 @@ def What_they_say_1(request):
     return render(request, 'static_images_guess_thinking.html')
 
 #@login_required
-def What_they_say_1_results(request):
+def What_they_say_1_results(request): 
     two_answers = db.child('second_static').order_by_key().limit_to_first(1).get().val().values()[0]
-
     answers_dict = {}
     score = 0
+    answers = list(two_answers.values())
+    questions = list(two_answers.keys())
+    #for key in two_answers:
     if 'angry' == two_answers['q1']:
         score +=1
-        answers_dict['q1'] = 1
+        answers_dict[1] = 1
     elif 'angry' != two_answers['q1']:
         score +=0
-        answers_dict['q1'] = 0
-        #access DOM and print success, do something
+        answers_dict[1] = 0
     if 'surprised' == two_answers['q2']:
         score +=1
-        answers_dict['q2'] = 1
+        answers_dict[2] = 1
     elif 'surprised' != two_answers['q2']:
         score +=0
-        answers_dict['q2'] =0
+        answers_dict[2] =0
+    else:
+        pass
     if 'disgusted' == two_answers['q3']:
         score +=1
-        answers_dict['q3'] = 1
+        answers_dict[3] = 1
     elif 'disgusted' != two_answers['q3']:
         score +=0
-        answers_dict['q3'] = 0
+        answers_dict[3] = 0
+    else:
+        pass
     if 'happy' == two_answers['q4']:
         score +=1
-        answers_dict['q4'] = 1
+        answers_dict[4] = 1
     elif 'happy' != two_answers['q4']:
         score +=0
-        answers_dict['q4'] = 0
+        answers_dict[4] = 0
     if 'sad' == two_answers['q5']:
         score +=1
-        answers_dict['q5'] = 1
+        answers_dict[5] = 1
     elif 'sad' != two_answers['q5']:
         score +=0
-        answers_dict['q5'] = 0
+        answers_dict[5] = 0
     if 'scared' == two_answers['q6']:
         score +=1
-        answers_dict['q6'] = 1
+        answers_dict[6] = 1
     elif 'scared' != two_answers['q6']:
         score +=0
-        answers_dict['q6'] = 0
- 
+        answers_dict[6] = 0
     #remove
     db.child('second_static').order_by_key().limit_to_first(1).remove()
     db.child('real_static_part_2').push(two_answers)
@@ -701,30 +715,26 @@ def save_static_1(request):
     return Guess_emotion_1_results(request)
 
 #@login_required
-def save_static_2(request):
-    config = {
-        "apiKey": "AIzaSyC6VFPqIsdF2BwR82O9zoGOAftdVgsR7NI",
-        "authDomain": "mythical-envoy-138318.firebaseapp.com",
-        "databaseURL": "https://mythical-envoy-138318.firebaseio.com",
-        "serviceAccount": "MyProject-5eabf65db970.json",
-        "storageBucket": "mythical-envoy-138318.appspot.com"
-    }
-    data2 = {}
+def save_static_2(request): 
+    data2 = {} #[]
     if 'questiontheysay1' in request.GET:
+        #data2.append('q1: ' + request.GET['questiontheysay1'])
         data2['q1'] = request.GET['questiontheysay1']
     if 'questiontheysay2' in request.GET:
+        #data2.append('q2: ' + request.GET['questiontheysay2'])
         data2['q2'] = request.GET['questiontheysay2']
     if 'questiontheysay3' in request.GET:
+        #data2.append('q3: ' + request.GET['questiontheysay3'])
         data2['q3'] = request.GET['questiontheysay3']
     if 'questiontheysay4' in request.GET:
+        #data2.append('q4: ' + request.GET['questiontheysay4'])
         data2['q4'] = request.GET['questiontheysay4']
     if 'questiontheysay5' in request.GET:
+        #data2.append('q5: ' + request.GET['questiontheysay5'])
         data2['q5'] = request.GET['questiontheysay5']
     if 'questiontheysay6' in request.GET:
+        #data2.append('q6: ' + request.GET['questiontheysay6'])
         data2['q6'] = request.GET['questiontheysay6']
-    cred = credentials.Certificate('MyProject-5eabf65db970.json')
-    firebase = pyrebase.initialize_app(config)
-    db = firebase.database()
     db.child("second_static").push(data2)
     return What_they_say_1_results(request)
 

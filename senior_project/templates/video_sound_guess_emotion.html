@@ -28,10 +28,22 @@
   <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
 </br>
 </br>
-<div style = "text-align:center">
-<video id="joy_vid" loop autoplay>
+<div style = "text-align:center"> 
+<video id="joy_vid" onmouseover="play()" onmouseout="pause">
 <source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,h_317,w_190/v1520373561/happysoundvid.mp4" type='video/mp4'>
 </video>
+<script> 
+var myVideo=document.getElementById("joy_vid"); 
+
+function play() { 
+if (myVideo.paused) {
+  myVideo.play(); 
+}
+}
+function pause() { 
+  myVideo.pause(); 
+  }
+</script>
 </br>
 </br> 
 <span><input type="radio" name="questionvid1" id="happy" value="happy">Happy</input></span>
@@ -46,9 +58,22 @@
 </br>
 </br>
 <div style="text-align:center">
-<video id="sad_vid" loop autoplay>
+<video id="sad_vid" onmouseover="play2();" onmouseout="pause2()">
 <source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,h_317,w_190/v1520373535/sadsoundvid.mp4" width="100" height = "100" type='video/mp4'>   
 </video>
+<script> 
+var myVid2=document.getElementById("sad_vid"); 
+
+function play2() 
+{ 
+if (myVid2.paused) {
+  myVid2.play(); 
+}
+}
+function pause2() {
+  myVid2.pause(); 
+} 
+</script>
 </br>
 </br>
 <span><input type="radio" name="questionvid2" id="angry" value="angry">Angry</input></span>
@@ -62,10 +87,23 @@
 <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
     </br>
     </br>
-    <div style="text-align:center">
-        <video id="angry_vid" loop autoplay>
+    <div style="text-align:center">        
+<video id="angry_vid" onmouseover="play3();" onmouseout="pause3();">
 <source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,eo_3.5,h_317,w_190/v1520373528/angrysoundvid.mp4" type='video/mp4'>
 </video>
+<script> 
+var myVid3=document.getElementById("angry_vid"); 
+
+function play3() 
+{ 
+if (myVid3.paused) { 
+  myVid3.play(); 
+}
+}
+function pause3() {
+  myVid3.pause(); 
+} 
+</script>
 </br>
 </br>
 <span><input type="radio" name="questionvid3" id="angry" value="angry">Angry</input></span>
@@ -79,10 +117,23 @@
 <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
    </br>
    </br>
-<div style="text-align:center">
-   <video id="scared_vid" loop autoplay>
+<div style="text-align:center">  
+<video id="scared_vid" onmouseover="play4()" onmouseout="pause4()">
 <source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,eo_3.5,h_317,w_190/v1520373569/scaredsoundvid.mp4" type='video/mp4'>
     </video>
+<script> 
+var myVid4=document.getElementById("scared_vid"); 
+
+function play4()
+{ 
+if (myVid4.paused) {
+  myVid4.play(); 
+}
+}
+function pause4() {
+  myVid4.pause(); 
+} 
+</script>
 </br>
 </br>
 <span><input type="radio" name="questionvid4" id="sad" value="sad">Sad</input></span>
@@ -97,9 +148,22 @@
     </br>
     </br>
     <div style="text-align:center">
-        <video id="surprised_vid" loop autoplay>
+<video id="surprised_vid" onmouseover="play5()" onmouseout="pause5()">
 <source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,h_317,w_190/v1520373537/surprisedsoundvid.mp4" type='video/mp4'>
 </video>
+<script> 
+var myVid5=document.getElementById("surprised_vid"); 
+
+function play5()
+{ 
+if (myVid5.paused) { 
+  myVid5.play(); 
+}
+}
+function pause5() { 
+  myVid5.pause(); 
+} 
+</script>
 </br>
 </br>
 <span><input type="radio" name="questionvid5" id="surprised" value="surprised">Surprised</input></span>
@@ -113,9 +177,22 @@
 <div class="question_box" style="text-align:center"><h3 class="h3">What emotion is this girl feeling?</h3>
     </br>
     </br>
-    <div style="text-align:center">
-        <video id="disgusted_vid" loop autoplay>
+    <div style="text-align:center">       
+<video id="disgusted_vid" onmouseover="play6()" onmouseout="pause6()">
 <source src = "http://res.cloudinary.com/lizziepika/video/upload/c_scale,h_317,w_190/v1520373532/disgustedsoundvid.mp4" type='video/mp4'></video>
+<script> 
+var myVid6=document.getElementById("disgusted_vid"); 
+
+function play6()
+{ 
+if (myVid6.paused) { 
+  myVid6.play(); 
+}
+}
+function pause6() { 
+  myVid6.pause(); 
+} 
+</script>
 </br>
 </br>
 <span><input type="radio" name="questionvid6" id="scared" value="scared">Scared</input></span>

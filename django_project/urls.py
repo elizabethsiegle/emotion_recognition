@@ -26,11 +26,11 @@ from django.conf import settings
 from django.views.static import serve
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)), #admin.site.urls,
-    #url(r'^login/$', views.login, name='login'),
+    url(r'^login/$', views.login, name='login'),
     #url(r'^logout/$', views.logout, name='logout'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     #path('accounts/', include('django.contrib.auth.urls')),
-    url(r'^form/$', views.Form),
+    #url(r'^form/$', views.Form),
     url(r'^$', views.Form, name='form'),
     #url(r'^video', views.twilio_video, name='twilio_video'),
     url(r'^home', views.Index, name='index'),
@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^guess_thinking_1', views.What_they_say_1, name='What_they_say_1'),
     url(r'^guess_suggest_1', views.Guess_suggest_1, name='Guess_suggest_1'),
     url(r'^guess_emotion_2', views.Guess_emotion_2, name='Guess_emotion_2'),
-    url(r'guess_thinking_2', views.What_they_say_2, name='What_they_say_2'),
+    url(r'^what_they_say_2', views.What_they_say_2, name='What_they_say_2'),
     url(r'guess_suggest_2', views.Guess_suggest_2, name='Guess_suggest_2'),
     url(r'guess_emotion_3', views.Guess_emotion_3, name='Guess_emotion_3'),
     url(r'guess_thinking_3', views.What_they_say_3, name='What_they_say_3'),

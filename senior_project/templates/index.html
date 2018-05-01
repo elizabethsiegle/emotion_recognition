@@ -38,7 +38,7 @@
 <body>
   <div class = "container">
         <p style="margin-top:10%">The following web applications will test your knowledge of emotions through the usage of static images, followed by gifs, and then finally through video clips with sound. If you want to try the iOS app instead (which syncs with the same Firebase database as these web apps), message Lizzie (esiegle@brynmawr.edu.) First, however, we need to learn more about you. </p>
-<form method="post" action="" class = "post-form">
+<form method="post" class = "post-form">
     {% csrf_token %}
     {{form.as_p}}
 <button type="submit" class = "save btn btn-default">Save</button>
